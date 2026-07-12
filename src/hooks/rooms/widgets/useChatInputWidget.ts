@@ -148,6 +148,13 @@ const useChatInputWidgetState = () =>
                 case ':chooser':
                     CreateLinkEvent('user-chooser/');
                     return null;
+                case ':wired':
+                    if(roomSession.isRoomOwner || GetSessionDataManager().isModerator || roomSession.controllerLevel >= RoomControllerLevel.GUEST)
+                    {
+                        CreateLinkEvent('wired-tools/toggle');
+                    }
+
+                    return null;
                 case ':floor':
                 case ':bcfloor':
                     if(roomSession.controllerLevel >= RoomControllerLevel.ROOM_OWNER) CreateLinkEvent('floor-editor/show');

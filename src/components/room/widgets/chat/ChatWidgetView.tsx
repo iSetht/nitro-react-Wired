@@ -1,7 +1,7 @@
 import { RoomChatSettings } from '@nitrots/nitro-renderer';
-import { FC, useCallback, useEffect, useRef } from 'react';
+import { FC, useCallback, useEffect, useMemo, useRef } from 'react';
 import { ChatBubbleMessage, DoChatsOverlap, GetConfiguration } from '../../../../api';
-import { useChatWidget } from '../../../../hooks';
+import { useChatWidget, useRoom } from '../../../../hooks';
 import IntervalWebWorker from '../../../../workers/IntervalWebWorker';
 import { WorkerBuilder } from '../../../../workers/WorkerBuilder';
 import { ChatWidgetMessageView } from './ChatWidgetMessageView';
@@ -9,7 +9,9 @@ import { ChatWidgetMessageView } from './ChatWidgetMessageView';
 export const ChatWidgetView: FC<{}> = props =>
 {
     const { chatMessages = [], setChatMessages = null, chatSettings = null, getScrollSpeed = 6000 } = useChatWidget();
+    const { roomSession = null } = useRoom();
     const elementRef = useRef<HTMLDivElement>();
+    const visibleChatMessages = useMemo(() => chatMessages.filter(chat => !roomSession || (chat.roomId === roomSession.roomId)), [ chatMessages, roomSession ]);
 
     const removeHiddenChats = useCallback(() =>
     {
@@ -28,9 +30,9 @@ export const ChatWidgetView: FC<{}> = props =>
 
     const checkOverlappingChats = useCallback((chat: ChatBubbleMessage, moved: number, tempChats: ChatBubbleMessage[]) => 
     {
-        for(let i = (chatMessages.indexOf(chat) - 1); i >= 0; i--)
+        for(let i = (visibleChatMessages.indexOf(chat) - 1); i >= 0; i--)
         {
-            const collides = chatMessages[i];
+            const collides = visibleChatMessages[i];
 
             if(!collides || (chat === collides) || (tempChats.indexOf(collides) >= 0) || (((collides.top + collides.height) - moved) > (chat.top + chat.height))) continue;
 
@@ -46,7 +48,7 @@ export const ChatWidgetView: FC<{}> = props =>
                 checkOverlappingChats(collides, amount, tempChats);
             }
         }
-    }, [ chatMessages ]);
+    }, [ visibleChatMessages ]);
 
     const makeRoom = useCallback((chat: ChatBubbleMessage) =>
     {
@@ -154,7 +156,7 @@ export const ChatWidgetView: FC<{}> = props =>
 
     return (
         <div ref={ elementRef } className="nitro-chat-widget">
-            { chatMessages.map(chat => <ChatWidgetMessageView key={ chat.id } chat={ chat } makeRoom={ makeRoom } bubbleWidth={ chatSettings.weight } />) }
+            { visibleChatMessages.map(chat => <ChatWidgetMessageView key={ chat.id } chat={ chat } makeRoom={ makeRoom } bubbleWidth={ chatSettings.weight } />) }
         </div>
     );
 }

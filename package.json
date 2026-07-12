@@ -7,7 +7,8 @@
     "start": "vite",
     "build": "vite build",
     "build:prod": "npx browserslist@latest --update-db && yarn build",
-    "eslint": "eslint src --ext .ts,.tsx"
+    "eslint": "eslint src --ext .ts,.tsx",
+    "truffle:setup": "truffle-setup --out public/assets/truffle"
   },
   "dependencies": {
     "@nitrots/nitro-renderer": "^1.6.6",
@@ -18,6 +19,7 @@
     "react-icons": "^4.7.1",
     "react-slider": "^2.0.0",
     "react-youtube": "^7.13.1",
+    "truffle-text": "1.0.0",
     "typescript": "^4.3.5",
     "use-between": "^1.3.4"
   },

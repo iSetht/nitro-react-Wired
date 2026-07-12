@@ -1,6 +1,6 @@
 import { BotCommandConfigurationEvent, BotRemoveComposer, BotSkillSaveComposer, RequestBotCommandConfigurationComposer, RoomObjectCategory, RoomObjectType } from '@nitrots/nitro-renderer';
 import { FC, useEffect, useState } from 'react';
-import { AvatarInfoRentableBot, BotSkillsEnum, DispatchUiEvent, GetConfiguration, GetNitroInstance, LocalizeText, RoomWidgetUpdateRentableBotChatEvent, SendMessageComposer } from '../../../../../api';
+import { AvatarInfoRentableBot, BotSkillsEnum, CreateLinkEvent, DispatchUiEvent, GetConfiguration, GetNitroInstance, GetWiredCreatorToolsSettings, LocalizeText, RoomWidgetUpdateRentableBotChatEvent, SendMessageComposer, WIRED_CREATOR_TOOLS_SETTINGS_EVENT } from '../../../../../api';
 import { Button, Column, Flex, Text } from '../../../../../common';
 import { useMessageEvent } from '../../../../../hooks';
 import { ContextMenuHeaderView } from '../../context-menu/ContextMenuHeaderView';
@@ -23,6 +23,7 @@ export const AvatarInfoWidgetRentableBotView: FC<AvatarInfoWidgetRentableBotView
     const [ mode, setMode ] = useState(MODE_NORMAL);
     const [ newName, setNewName ] = useState('');
     const [ newMotto, setNewMotto ] = useState('');
+    const [ showInspectButton, setShowInspectButton ] = useState(() => GetWiredCreatorToolsSettings().showInspectButton);
 
     useMessageEvent<BotCommandConfigurationEvent>(BotCommandConfigurationEvent, event =>
     {
@@ -115,6 +116,9 @@ export const AvatarInfoWidgetRentableBotView: FC<AvatarInfoWidgetRentableBotView
                 case 'pick':
                     SendMessageComposer(new BotRemoveComposer(avatarInfo.webID));
                     break;
+                case 'inspect':
+                    CreateLinkEvent(`wired-tools/inspect/user/${ avatarInfo.roomIndex }`);
+                    break;
                 default:
                     break;
             }
@@ -127,6 +131,15 @@ export const AvatarInfoWidgetRentableBotView: FC<AvatarInfoWidgetRentableBotView
     {
         setMode(MODE_NORMAL);
     }, [ avatarInfo ]);
+
+    useEffect(() =>
+    {
+        const updateSettings = () => setShowInspectButton(GetWiredCreatorToolsSettings().showInspectButton);
+
+        window.addEventListener(WIRED_CREATOR_TOOLS_SETTINGS_EVENT, updateSettings);
+
+        return () => window.removeEventListener(WIRED_CREATOR_TOOLS_SETTINGS_EVENT, updateSettings);
+    }, []);
 
     const canControl = (avatarInfo.amIOwner || avatarInfo.amIAnyRoomController);
 
@@ -172,6 +185,10 @@ export const AvatarInfoWidgetRentableBotView: FC<AvatarInfoWidgetRentableBotView
                     { (avatarInfo.botSkills.indexOf(BotSkillsEnum.NO_PICK_UP) === -1) &&
                         <ContextMenuListItemView onClick={ event => processAction('pick') }>
                             { LocalizeText('avatar.widget.pick_up') }
+                        </ContextMenuListItemView> }
+                    { showInspectButton &&
+                        <ContextMenuListItemView onClick={ event => processAction('inspect') }>
+                            Inspect
                         </ContextMenuListItemView> }
                 </> }
             { (mode === MODE_CHANGE_NAME) &&

@@ -39,6 +39,15 @@
         background: rgba($dark, .95);
         box-shadow: inset 0px 5px lighten(rgba($dark, .6), 2.5), inset 0 -4px darken(rgba($dark, .6), 4);
 
+        &.nitro-infostand-temp-furni {
+            background: #132A43;
+            box-shadow: inset 0 5px rgba(255, 255, 255, .08), inset 0 -4px rgba(0, 0, 0, .18);
+        }
+
+        .nitro-infostand-temp-catalog {
+            min-height: 16px;
+        }
+
         .form-control-sm {
             height: 25px;
             min-height: 25px;

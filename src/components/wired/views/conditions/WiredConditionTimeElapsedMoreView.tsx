@@ -1,9 +1,9 @@
 import { FC, useEffect, useState } from 'react';
-import ReactSlider from 'react-slider';
 import { GetWiredTimeLocale, LocalizeText, WiredFurniType } from '../../../../api';
-import { Column, Text } from '../../../../common';
+import { Column, Flex } from '../../../../common';
 import { useWired } from '../../../../hooks';
 import { WiredConditionBaseView } from './WiredConditionBaseView';
+import { WiredControlTitle, WiredSlider, WiredTextInput, clampWiredValue } from '../WiredControls';
 
 export const WiredConditionTimeElapsedMoreView: FC<{}> = props =>
 {
@@ -20,9 +20,11 @@ export const WiredConditionTimeElapsedMoreView: FC<{}> = props =>
     return (
         <WiredConditionBaseView requiresFurni={ WiredFurniType.STUFF_SELECTION_OPTION_NONE } hasSpecialInput={ true } save={ save }>
             <Column gap={ 1 }>
-                <Text bold>{ LocalizeText('wiredfurni.params.allowafter', [ 'seconds' ], [ GetWiredTimeLocale(time) ]) }</Text>
-                <ReactSlider
-                    className={ 'nitro-slider' }
+                <Flex className="nw-title-input-row" alignItems="center" gap={ 1 }>
+                    <WiredControlTitle>{ LocalizeText('wiredfurni.params.allowafter2', [ 'seconds' ], [ GetWiredTimeLocale(time) ]) }</WiredControlTitle>
+                    <WiredTextInput compact type="number" min={ 1 } max={ 1200 } value={ time } onChange={ event => setTime(clampWiredValue(parseInt(event.target.value || '0'), 1, 1200)) } />
+                </Flex>
+                <WiredSlider
                     min={ 1 }
                     max={ 1200 }
                     value={ time }

@@ -1,6 +1,6 @@
 import { ILinkEventTracker } from '@nitrots/nitro-renderer';
 import { FC, useEffect } from 'react';
-import { AddEventLinkTracker, GetConfiguration, LocalizeText, RemoveLinkEventTracker } from '../../api';
+import { AddEventLinkTracker, CatalogType, GetConfiguration, LocalizeText, RemoveLinkEventTracker } from '../../api';
 import { Column, Flex, Grid, NitroCardContentView, NitroCardHeaderView, NitroCardTabsItemView, NitroCardTabsView, NitroCardView } from '../../common';
 import { useCatalog } from '../../hooks';
 import { CatalogIconView } from './views/catalog-icon/CatalogIconView';
@@ -11,27 +11,37 @@ import { MarketplacePostOfferView } from './views/page/layout/marketplace/Market
 
 export const CatalogView: FC<{}> = props =>
 {
-    const { isVisible = false, setIsVisible = null, rootNode = null, currentPage = null, navigationHidden = false, setNavigationHidden = null, activeNodes = [], searchResult = null, setSearchResult = null, openPageByName = null, openPageByOfferId = null, activateNode = null, getNodeById } = useCatalog();
+    const { isVisible = false, setIsVisible = null, rootNode = null, currentPage = null, currentType = null, navigationHidden = false, setNavigationHidden = null, activeNodes = [], searchResult = null, setSearchResult = null, openPageByName = null, openPageByOfferId = null, activateNode = null, switchCatalogType = null } = useCatalog();
 
+    // Link tracker for the regular catalog
     useEffect(() =>
     {
         const linkTracker: ILinkEventTracker = {
             linkReceived: (url: string) =>
             {
                 const parts = url.split('/');
-        
+
                 if(parts.length < 2) return;
-        
+
                 switch(parts[1])
                 {
                     case 'show':
+                        if(currentType !== CatalogType.NORMAL) switchCatalogType(CatalogType.NORMAL);
                         setIsVisible(true);
                         return;
                     case 'hide':
                         setIsVisible(false);
                         return;
                     case 'toggle':
-                        setIsVisible(prevValue => !prevValue);
+                        if(currentType !== CatalogType.NORMAL)
+                        {
+                            switchCatalogType(CatalogType.NORMAL);
+                            setIsVisible(true);
+                        }
+                        else
+                        {
+                            setIsVisible(prevValue => !prevValue);
+                        }
                         return;
                     case 'open':
                         if(parts.length > 2)
@@ -54,7 +64,7 @@ export const CatalogView: FC<{}> = props =>
                         {
                             setIsVisible(true);
                         }
-        
+
                         return;
                 }
             },
@@ -64,13 +74,16 @@ export const CatalogView: FC<{}> = props =>
         AddEventLinkTracker(linkTracker);
 
         return () => RemoveLinkEventTracker(linkTracker);
-    }, [ setIsVisible, openPageByOfferId, openPageByName ]);
+    }, [ currentType, setIsVisible, openPageByOfferId, openPageByName, switchCatalogType ]);
 
     return (
         <>
             { isVisible &&
                 <NitroCardView theme="primary-slim" uniqueKey="catalog" className="nitro-catalog" style={ GetConfiguration('catalog.headers') ? { width: 710 } : {} }>
-                    <NitroCardHeaderView headerText={ LocalizeText('catalog.title') } onCloseClick={ event => setIsVisible(false) } />
+                    <NitroCardHeaderView
+                        headerText={ LocalizeText('catalog.title') }
+                        onCloseClick={ event => setIsVisible(false) }
+                    />
                     <NitroCardTabsView>
                         { rootNode && (rootNode.children.length > 0) && rootNode.children.map(child =>
                         {
@@ -98,7 +111,7 @@ export const CatalogView: FC<{}> = props =>
                                     { activeNodes && (activeNodes.length > 0) &&
                                         <CatalogNavigationView node={ activeNodes[0] } /> }
                                 </Column> }
-                                
+
                             <Column size={ !navigationHidden ? 9 : 12 } overflow="hidden">
                                 { GetCatalogLayout(currentPage, () => setNavigationHidden(true)) }
                             </Column>

@@ -1,9 +1,10 @@
 import { CrackableDataType, GroupInformationComposer, GroupInformationEvent, NowPlayingEvent, RoomControllerLevel, RoomObjectCategory, RoomObjectOperationType, RoomObjectVariable, RoomWidgetEnumItemExtradataParameter, RoomWidgetFurniInfoUsagePolicyEnum, SetObjectDataMessageComposer, SongInfoReceivedEvent, StringDataType } from '@nitrots/nitro-renderer';
 import { FC, useCallback, useEffect, useState } from 'react';
 import { FaTimes } from 'react-icons/fa';
-import { AvatarInfoFurni, CreateLinkEvent, GetGroupInformation, GetNitroInstance, GetRoomEngine, LocalizeText, SendMessageComposer } from '../../../../../api';
+import { AvatarInfoFurni, CreateLinkEvent, GetGroupInformation, GetNitroInstance, GetRoomEngine, GetWiredCreatorToolsSettings, LocalizeText, SendMessageComposer, WIRED_CREATOR_TOOLS_SETTINGS_EVENT } from '../../../../../api';
 import { Base, Button, Column, Flex, LayoutBadgeImageView, LayoutLimitedEditionCompactPlateView, LayoutRarityLevelView, Text, UserProfileIconView } from '../../../../../common';
 import { useMessageEvent, useRoom, useSoundEvent } from '../../../../../hooks';
+import { CatalogIconView } from '../../../../catalog/views/catalog-icon/CatalogIconView';
 
 interface InfoStandWidgetFurniViewProps
 {
@@ -39,6 +40,16 @@ export const InfoStandWidgetFurniView: FC<InfoStandWidgetFurniViewProps> = props
     const [ songId, setSongId ] = useState<number>(-1);
     const [ songName, setSongName ] = useState<string>('');
     const [ songCreator, setSongCreator ] = useState<string>('');
+    const [ creatorSettings, setCreatorSettings ] = useState(() => GetWiredCreatorToolsSettings());
+
+    useEffect(() =>
+    {
+        const updateSettings = () => setCreatorSettings(GetWiredCreatorToolsSettings());
+
+        window.addEventListener(WIRED_CREATOR_TOOLS_SETTINGS_EVENT, updateSettings);
+
+        return () => window.removeEventListener(WIRED_CREATOR_TOOLS_SETTINGS_EVENT, updateSettings);
+    }, []);
 
     useSoundEvent<NowPlayingEvent>(NowPlayingEvent.NPE_SONG_CHANGED, event =>
     {
@@ -281,6 +292,9 @@ export const InfoStandWidgetFurniView: FC<InfoStandWidgetFurniViewProps> = props
             case 'use':
                 GetRoomEngine().useRoomObject(avatarInfo.id, avatarInfo.category);
                 break;
+            case 'inspect':
+                CreateLinkEvent(`wired-tools/inspect/furni/${ avatarInfo.id }/${ avatarInfo.category }`);
+                break;
             case 'save_branding_configuration': {
                 const mapData = new Map<string, string>();
                 const dataParts = getFurniSettingsAsString().split('\t');
@@ -326,9 +340,12 @@ export const InfoStandWidgetFurniView: FC<InfoStandWidgetFurniViewProps> = props
 
     if(!avatarInfo) return null;
 
+    const isTempFurni = avatarInfo.id < 0;
+    const canManipulate = !creatorSettings.playtestingMode;
+
     return (
         <Column gap={ 1 } alignItems="end">
-            <Column className="nitro-infostand rounded">
+            <Column className={ `nitro-infostand rounded ${ isTempFurni ? 'nitro-infostand-temp-furni' : '' }` }>
                 <Column overflow="visible" className="container-fluid content-area" gap={ 1 }>
                     <Column gap={ 1 }>
                         <Flex alignItems="center" justifyContent="between" gap={ 1 }>
@@ -350,6 +367,11 @@ export const InfoStandWidgetFurniView: FC<InfoStandWidgetFurniViewProps> = props
                             { avatarInfo.image && avatarInfo.image.src.length && 
                                 <img className="d-block mx-auto" src={ avatarInfo.image.src } alt="" /> }
                         </Flex>
+                        { isTempFurni &&
+                            <Flex alignItems="center" justifyContent="center" gap={ 1 } className="nitro-infostand-temp-catalog">
+                                <CatalogIconView icon={ 80 } />
+                                <Text variant="white" small wrap>{ LocalizeText('temp.catalog.title') }</Text>
+                            </Flex> }
                         <hr className="m-0" />
                     </Column>
                     <Column gap={ 1 }>
@@ -443,21 +465,25 @@ export const InfoStandWidgetFurniView: FC<InfoStandWidgetFurniViewProps> = props
                 </Column>
             </Column>
             <Flex gap={ 1 } justifyContent="end">
-                { canMove &&
+                { canManipulate && canMove &&
                     <Button variant="dark" onClick={ event => processButtonAction('move') }>
                         { LocalizeText('infostand.button.move') }
                     </Button> }
-                { canRotate &&
+                { canManipulate && canRotate &&
                     <Button variant="dark" onClick={ event => processButtonAction('rotate') }>
                         { LocalizeText('infostand.button.rotate') }
                     </Button> }
-                { (pickupMode !== PICKUP_MODE_NONE) &&
+                { canManipulate && (pickupMode !== PICKUP_MODE_NONE) &&
                     <Button variant="dark" onClick={ event => processButtonAction('pickup') }>
                         { LocalizeText((pickupMode === PICKUP_MODE_EJECT) ? 'infostand.button.eject' : 'infostand.button.pickup') }
                     </Button> }
-                { canUse &&
+                { canManipulate && canUse &&
                     <Button variant="dark" onClick={ event => processButtonAction('use') }>
                         { LocalizeText('infostand.button.use') }
+                    </Button> }
+                { creatorSettings.showInspectButton &&
+                    <Button variant="dark" onClick={ event => processButtonAction('inspect') }>
+                        Inspect
                     </Button> }
                 { ((furniKeys.length > 0 && furniValues.length > 0) && (furniKeys.length === furniValues.length)) &&
                     <Button variant="dark" onClick={ () => processButtonAction('save_branding_configuration') }>

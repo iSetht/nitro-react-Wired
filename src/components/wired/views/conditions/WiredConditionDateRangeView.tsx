@@ -3,6 +3,7 @@ import { LocalizeText, WiredDateToString, WiredFurniType } from '../../../../api
 import { Column, Text } from '../../../../common';
 import { useWired } from '../../../../hooks';
 import { WiredConditionBaseView } from './WiredConditionBaseView';
+import { WiredTextInput } from '../WiredControls';
 
 export const WiredConditionDateRangeView: FC<{}> = props =>
 {
@@ -47,11 +48,11 @@ export const WiredConditionDateRangeView: FC<{}> = props =>
         <WiredConditionBaseView requiresFurni={ WiredFurniType.STUFF_SELECTION_OPTION_NONE } hasSpecialInput={ true } save={ save }>
             <Column gap={ 1 }>
                 <Text bold>{ LocalizeText('wiredfurni.params.startdate') }</Text>
-                <input type="text" className="form-control form-control-sm" value={ startDate } onChange={ (e) => setStartDate(e.target.value) } />
+                <WiredTextInput type="text" value={ startDate } onChange={ (e) => setStartDate(e.target.value) } />
             </Column>
             <Column gap={ 1 }>
                 <Text bold>{ LocalizeText('wiredfurni.params.enddate') }</Text>
-                <input type="text" className="form-control form-control-sm" value={ endDate } onChange={ (e) => setEndDate(e.target.value) } />
+                <WiredTextInput type="text" value={ endDate } onChange={ (e) => setEndDate(e.target.value) } />
             </Column>
         </WiredConditionBaseView>
     );

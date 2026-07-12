@@ -1,8 +1,8 @@
-import { Dispose, DropBounce, EaseOut, IssueMessageData, JumpBy, Motions, NitroToolbarAnimateIconEvent, PerkAllowancesMessageEvent, PerkEnum, Queue, Wait } from '@nitrots/nitro-renderer';
-import { FC, useState } from 'react';
-import { CreateLinkEvent, GetConfiguration, GetSessionDataManager, MessengerIconState, OpenMessengerChat, VisitDesktop } from '../../api';
+import { Dispose, DropBounce, EaseOut, IssueMessageData, JumpBy, Motions, NitroToolbarAnimateIconEvent, PerkAllowancesMessageEvent, PerkEnum, Queue, RoomControllerLevel, Wait } from '@nitrots/nitro-renderer';
+import { FC, useEffect, useState } from 'react';
+import { CreateLinkEvent, GetConfiguration, GetSessionDataManager, GetWiredCreatorToolsSettings, MessengerIconState, OpenMessengerChat, VisitDesktop, WIRED_CREATOR_TOOLS_SETTINGS_EVENT } from '../../api';
 import { Base, Flex, LayoutAvatarImageView, LayoutItemCountView, TransitionAnimation, TransitionAnimationTypes } from '../../common';
-import { useAchievements, useFriends, useInventoryUnseenTracker, useMessageEvent, useMessenger, useModTools, useRoomEngineEvent, useSessionInfo } from '../../hooks';
+import { useAchievements, useFriends, useInventoryUnseenTracker, useMessageEvent, useMessenger, useModTools, useRoom, useRoomEngineEvent, useSessionInfo } from '../../hooks';
 import { ToolbarMeView } from './ToolbarMeView';
 
 export const ToolbarView: FC<{ isInRoom: boolean }> = props =>
@@ -12,6 +12,7 @@ export const ToolbarView: FC<{ isInRoom: boolean }> = props =>
     const [ leftSideCollapsed, setLeftSideCollapsed ] = useState(true);
     const [ rightSideCollapsed, setRightSideCollapsed ] = useState(true);
     const [ useGuideTool, setUseGuideTool ] = useState(false);
+    const [ showWiredToolbar, setShowWiredToolbar ] = useState(() => GetWiredCreatorToolsSettings().showToolbar);
     const { userFigure = null } = useSessionInfo();
     const { getFullCount = 0 } = useInventoryUnseenTracker();
     const { getTotalUnseen = 0 } = useAchievements();
@@ -19,8 +20,18 @@ export const ToolbarView: FC<{ isInRoom: boolean }> = props =>
     const { iconState = MessengerIconState.HIDDEN } = useMessenger();
     const isMod = GetSessionDataManager().isModerator;
     const { tickets = [] } = useModTools();
+    const { roomSession = null } = useRoom();
     const openIssueCount = tickets.filter(i => i.state === IssueMessageData.STATE_OPEN).length;
+    const canOpenWiredTools = isInRoom && !!roomSession && (roomSession.isRoomOwner || roomSession.controllerLevel >= RoomControllerLevel.GUEST || isMod);
 
+    useEffect(() =>
+    {
+        const updateSettings = () => setShowWiredToolbar(GetWiredCreatorToolsSettings().showToolbar);
+
+        window.addEventListener(WIRED_CREATOR_TOOLS_SETTINGS_EVENT, updateSettings);
+
+        return () => window.removeEventListener(WIRED_CREATOR_TOOLS_SETTINGS_EVENT, updateSettings);
+    }, []);
 
     useMessageEvent<PerkAllowancesMessageEvent>(PerkAllowancesMessageEvent, event =>
     {
@@ -88,6 +99,8 @@ export const ToolbarView: FC<{ isInRoom: boolean }> = props =>
                             { GetConfiguration('game.center.enabled') && <Base pointer className="navigation-item icon icon-game" onClick={ event => CreateLinkEvent('games/toggle') } /> }
                         </Flex> }
                         <Base pointer className="navigation-item icon icon-catalog" onClick={ event => CreateLinkEvent('catalog/toggle') } />
+                        { canOpenWiredTools && showWiredToolbar &&
+                            <Base pointer className="navigation-item icon icon-wired-tools" onClick={ event => CreateLinkEvent('wired-tools/toggle') } /> }
                         <Base pointer className="navigation-item icon icon-inventory" onClick={ event => CreateLinkEvent('inventory/toggle') }>
                             { (getFullCount > 0) &&
                                 <LayoutItemCountView count={ getFullCount } /> }

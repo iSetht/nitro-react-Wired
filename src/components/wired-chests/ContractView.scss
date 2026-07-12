@@ -1,0 +1,300 @@
+.nitro-wired-contract {
+    .contract-param {
+        padding: 0;
+
+        &.has-divider {
+            border-bottom: 1px solid #c7c7bd;
+        }
+
+        &.is-disabled {
+            opacity: .55;
+            pointer-events: none;
+        }
+    }
+
+    .nw-param {
+        padding: 5px 0;
+    }
+}
+
+.contract-radio,
+.contract-check {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    min-height: 20px;
+    font-size: 12px;
+
+    input {
+        margin: 0;
+    }
+}
+
+.contract-input,
+.contract-textarea,
+.contract-select {
+    width: 100%;
+    min-height: 24px;
+    padding: 2px 6px;
+    border: 1px solid #000;
+    border-radius: 7px;
+    background: #fff;
+    color: #000;
+    font-size: 12px;
+
+    &:disabled {
+        background: #efefef;
+        color: #888;
+    }
+
+    &.is-small {
+        width: 90px;
+    }
+
+    &.is-code {
+        width: 160px;
+    }
+
+    &.is-search {
+        width: 160px;
+    }
+}
+
+.contract-field-row {
+    .nw-input-wrap.is-code,
+    .nw-input-wrap.is-search {
+        width: 160px;
+    }
+}
+
+.contract-textarea {
+    height: 54px;
+    resize: none;
+}
+
+.contract-rule-box {
+    min-height: 66px;
+    margin-bottom: 6px;
+    padding: 4px 5px;
+    border: 1px solid #000;
+    border-radius: 6px;
+    background: #d4d4d4;
+
+    &.is-disabled {
+        background: #cfcfcf;
+    }
+}
+
+.contract-rule-title {
+    display: block;
+    margin-bottom: 3px;
+}
+
+.contract-add-tile,
+.contract-element-tile {
+    position: relative;
+    width: 43px;
+    height: 43px;
+    border: 1px solid #000;
+    border-radius: 6px;
+    background: #f3f3f3;
+}
+
+.contract-add-tile {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    img {
+        image-rendering: pixelated;
+    }
+}
+
+.contract-element-tile {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    &.is-disabled {
+        opacity: .65;
+    }
+
+    .contract-furni-icon {
+        flex: 0 0 auto;
+        max-width: 32px;
+        max-height: 32px;
+        image-rendering: pixelated;
+    }
+}
+
+.contract-credit-icon {
+    width: 26px;
+    height: 26px;
+    image-rendering: pixelated;
+}
+
+.contract-amount-badge {
+    position: absolute;
+    right: -3px;
+    bottom: -4px;
+    min-width: 17px;
+    height: 15px;
+    padding: 0 3px;
+    border: 1px solid #6b6b6b;
+    border-radius: 8px;
+    background: #efefef;
+    color: #000;
+    font-size: 10px;
+    line-height: 14px;
+    text-align: center;
+}
+
+.contract-remove-element {
+    display: none;
+    position: absolute;
+    top: -8px;
+    right: -6px;
+    width: 15px;
+    height: 15px;
+    padding: 0;
+    border: 1px solid #000;
+    border-radius: 50%;
+    background: #d63a2f;
+    color: #fff;
+    font-size: 10px;
+    line-height: 10px;
+}
+
+.contract-element-tile:hover .contract-remove-element {
+    display: block;
+}
+
+.nitro-wired-contract-element {
+    .nw-special {
+        padding-top: 0;
+    }
+}
+
+.contract-element-top {
+    border-bottom: 1px solid #c2c2c2;
+
+    .contract-element-type,
+    .contract-element-amount {
+        min-height: 78px;
+        padding: 10px;
+    }
+
+    .contract-element-type {
+        border-right: 1px solid #c2c2c2;
+    }
+}
+
+.contract-item-selection {
+    padding: 9px 8px 7px;
+
+    &.is-disabled {
+        opacity: .55;
+    }
+}
+
+.contract-field-row {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    margin-top: 6px;
+    color: #666;
+    font-size: 12px;
+}
+
+.contract-selected-preview {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 42px;
+    height: 42px;
+    margin-right: 4px;
+    background: #deded6;
+
+    img {
+        max-width: 34px;
+        max-height: 34px;
+        image-rendering: pixelated;
+    }
+}
+
+.contract-furni-table {
+    height: 154px;
+    width: 100%;
+    min-width: 0;
+    max-width: 100%;
+    max-height: 154px;
+    margin-top: 6px;
+    margin-bottom: 6px;
+    cursor: default;
+    overflow-x: hidden;
+    overflow-y: auto;
+
+    .wired-tools-table {
+        width: 100%;
+        min-width: 0;
+        max-width: 100%;
+        table-layout: fixed;
+
+        th,
+        td {
+            padding-right: 4px;
+            padding-left: 4px;
+            overflow: hidden;
+            text-align: center;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        th:nth-child(1),
+        td:nth-child(1) {
+            width: 44%;
+        }
+
+        th:nth-child(2),
+        td:nth-child(2) {
+            width: 40%;
+        }
+
+        th:nth-child(3),
+        td:nth-child(3) {
+            width: 16%;
+        }
+
+        tbody tr {
+            cursor: pointer;
+        }
+    }
+
+    .wired-tools-ui-text {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        max-width: 100%;
+        width: 100%;
+        min-height: 14px;
+        overflow: hidden;
+        color: #30291f;
+        font-family: Ubuntu, Arial, sans-serif;
+        font-size: 10px;
+        font-weight: 400;
+        letter-spacing: 0;
+        line-height: 14px;
+        text-shadow: none;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+
+    .wired-tools-strong-text {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        max-width: 100%;
+        width: 100%;
+        overflow: hidden;
+    }
+}

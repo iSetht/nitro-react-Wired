@@ -76,6 +76,22 @@ const useNotificationState = () =>
         setBubbleAlerts(prevValue => [ notificationItem, ...prevValue ]);
     }, [ bubblesDisabled ]);
 
+    const showChestBubble = useCallback((data: any) =>
+    {
+        if(!data?.key) return;
+
+        setBubbleAlerts(prevValue =>
+        {
+            const filtered = prevValue.filter(item => item.key !== data.key);
+
+            if(bubblesDisabled || data.active === false) return filtered;
+
+            const notificationItem = new NotificationBubbleItem(data.message || '', NotificationBubbleType.WIRED_CHEST, data.iconUrl || null, data.linkUrl || null, data.key, data.timeoutMs || 8000, data);
+
+            return [ notificationItem, ...filtered ];
+        });
+    }, [ bubblesDisabled ]);
+
     const showNotification = (type: string, options: Map<string, string> = null) =>
     {
         if(!options) options = new Map();
@@ -426,7 +442,7 @@ const useNotificationState = () =>
 
     useMessageEvent<RoomEnterEvent>(RoomEnterEvent, onRoomEnterEvent);
 
-    return { alerts, bubbleAlerts, confirms, simpleAlert, showNitroAlert, showTradeAlert, showConfirm, showSingleBubble, closeAlert, closeBubbleAlert, closeConfirm };
+    return { alerts, bubbleAlerts, confirms, simpleAlert, showNitroAlert, showTradeAlert, showConfirm, showSingleBubble, showChestBubble, closeAlert, closeBubbleAlert, closeConfirm };
 }
 
 export const useNotification = () => useBetween(useNotificationState);

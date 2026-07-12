@@ -1,51 +1,89 @@
 import { WiredTriggerLayout } from '../../../../api';
-import { WiredTriggerAvatarEnterRoomView } from './WiredTriggerAvatarEnterRoomView';
-import { WiredTriggerAvatarSaysSomethingView } from './WiredTriggerAvatarSaysSomethingView';
+import { WiredTriggerAtSetTimeView } from './WiredTriggerAtSetTimeView';
+import { WiredTriggerAvatarClicksAvatarView } from './WiredTriggerAvatarClicksAvatarView';
+import { WiredTriggerAvatarClicksFurniView } from './WiredTriggerAvatarClicksFurniView';
+import { WiredTriggerAvatarClicksTileView } from './WiredTriggerAvatarClicksTileView';
+import { WiredTriggerAvatarEntersRoomView } from './WiredTriggerAvatarEntersRoomView';
+import { WiredTriggerAvatarLeavesRoomView } from './WiredTriggerAvatarLeavesRoomView';
+import { WiredTriggerAvatarPerformsActionView } from './WiredTriggerAvatarPerformsActionView';
+import { WiredTriggerAvatarSaysKeywordView } from './WiredTriggerAvatarSaysKeywordView';
 import { WiredTriggerAvatarWalksOffFurniView } from './WiredTriggerAvatarWalksOffFurniView';
 import { WiredTriggerAvatarWalksOnFurniView } from './WiredTriggerAvatarWalksOnFurni';
 import { WiredTriggerBotReachedAvatarView } from './WiredTriggerBotReachedAvatarView';
-import { WiredTriggerBotReachedStuffView } from './WiredTriggerBotReachedStuffView';
+import { WiredTriggerBotReachedFurniView } from './WiredTriggerBotReachedFurniView';
 import { WiredTriggerCollisionView } from './WiredTriggerCollisionView';
-import { WiredTriggeExecuteOnceView } from './WiredTriggerExecuteOnceView';
-import { WiredTriggeExecutePeriodicallyLongView } from './WiredTriggerExecutePeriodicallyLongView';
-import { WiredTriggeExecutePeriodicallyView } from './WiredTriggerExecutePeriodicallyView';
+import { WiredTriggerCounterReachesSetTimeView } from './WiredTriggerCounterReachesSetTimeView';
+import { WiredTriggerFurniIsUsedView } from './WiredTriggerFurniIsUsedView';
+import { WiredTriggerFurniStateChangeView } from './WiredTriggerFurniStateChangeView';
 import { WiredTriggerGameEndsView } from './WiredTriggerGameEndsView';
 import { WiredTriggerGameStartsView } from './WiredTriggerGameStartsView';
-import { WiredTriggeScoreAchievedView } from './WiredTriggerScoreAchievedView';
-import { WiredTriggerToggleFurniView } from './WiredTriggerToggleFurniView';
+import { WiredTriggerReceiveSignalView } from './WiredTriggerReceiveSignalView';
+import { WiredTriggerRepeaterLongView } from './WiredTriggerRepeaterLongView';
+import { WiredTriggerRepeaterShortView } from './WiredTriggerRepeaterShortView';
+import { WiredTriggerRepeaterView } from './WiredTriggerRepeaterView';
+import { WiredTriggerScoreAchievedView } from './WiredTriggerScoreAchievedView';
+import { WiredTriggerTransactionView } from './WiredTriggerTransactionView';
+import { WiredTriggerUserReleasesView } from './WiredTriggerUserReleasesView';
+import { WiredTriggerVariableChangedView } from './WiredTriggerVariableChangedView';
+
 
 export const WiredTriggerLayoutView = (code: number) =>
 {
     switch(code)
     {
-        case WiredTriggerLayout.AVATAR_ENTERS_ROOM:
-            return <WiredTriggerAvatarEnterRoomView />;
-        case WiredTriggerLayout.AVATAR_SAYS_SOMETHING:
-            return <WiredTriggerAvatarSaysSomethingView />;
-        case WiredTriggerLayout.AVATAR_WALKS_OFF_FURNI:
-            return <WiredTriggerAvatarWalksOffFurniView />;
-        case WiredTriggerLayout.AVATAR_WALKS_ON_FURNI:
+        case WiredTriggerLayout.WALKS_ON_FURNI:
             return <WiredTriggerAvatarWalksOnFurniView />;
-        case WiredTriggerLayout.BOT_REACHED_AVATAR:
-            return <WiredTriggerBotReachedAvatarView />;
-        case WiredTriggerLayout.BOT_REACHED_STUFF:
-            return <WiredTriggerBotReachedStuffView />;
+        case WiredTriggerLayout.WALKS_OFF_FURNI:
+            return <WiredTriggerAvatarWalksOffFurniView />;
+        case WiredTriggerLayout.SAYS_KEYWORD:
+            return <WiredTriggerAvatarSaysKeywordView />;
+        case WiredTriggerLayout.FURNI_USED:
+            return <WiredTriggerFurniIsUsedView />;
+        case WiredTriggerLayout.FURNI_STATE_CHANGED:
+            return <WiredTriggerFurniStateChangeView />;
+        case WiredTriggerLayout.ENTER_ROOM:
+            return <WiredTriggerAvatarEntersRoomView />;
+        case WiredTriggerLayout.LEAVE_ROOM:
+            return <WiredTriggerAvatarLeavesRoomView />;
+        case WiredTriggerLayout.CLICK_FURNI:
+            return <WiredTriggerAvatarClicksFurniView />;
+        case WiredTriggerLayout.CLICK_AVATAR:
+            return <WiredTriggerAvatarClicksAvatarView />;
+        case WiredTriggerLayout.CLICK_TILE:
+            return <WiredTriggerAvatarClicksTileView />;
+        case WiredTriggerLayout.PERIODICALLY:
+            return <WiredTriggerRepeaterView />;
+        case WiredTriggerLayout.PERIODICALLY_LONG:
+            return <WiredTriggerRepeaterLongView />;
+        case WiredTriggerLayout.PERIODICALLY_SHORT:
+            return <WiredTriggerRepeaterShortView />;
+        case WiredTriggerLayout.PERFORM_ACTION:
+            return <WiredTriggerAvatarPerformsActionView />;
         case WiredTriggerLayout.COLLISION:
             return <WiredTriggerCollisionView />;
-        case WiredTriggerLayout.EXECUTE_ONCE:
-            return <WiredTriggeExecuteOnceView />;
-        case WiredTriggerLayout.EXECUTE_PERIODICALLY:
-            return <WiredTriggeExecutePeriodicallyView />;
-        case WiredTriggerLayout.EXECUTE_PERIODICALLY_LONG:
-            return <WiredTriggeExecutePeriodicallyLongView />;
+        case WiredTriggerLayout.RECEIVE_SIGNAL:
+            return <WiredTriggerReceiveSignalView />;
+        case WiredTriggerLayout.COUNTER_REACHES_SET_TIME:
+            return <WiredTriggerCounterReachesSetTimeView />;
+        case WiredTriggerLayout.AT_SET_TIME:
+            return <WiredTriggerAtSetTimeView />;
         case WiredTriggerLayout.GAME_ENDS:
             return <WiredTriggerGameEndsView />;
         case WiredTriggerLayout.GAME_STARTS:
             return <WiredTriggerGameStartsView />;
         case WiredTriggerLayout.SCORE_ACHIEVED:
-            return <WiredTriggeScoreAchievedView />;
-        case WiredTriggerLayout.TOGGLE_FURNI:
-            return <WiredTriggerToggleFurniView />;
+            return <WiredTriggerScoreAchievedView />;
+        case WiredTriggerLayout.BOT_REACHES_AVATAR:
+            return <WiredTriggerBotReachedAvatarView />;
+        case WiredTriggerLayout.BOT_REACHES_FURNI:
+            return <WiredTriggerBotReachedFurniView />;
+        case WiredTriggerLayout.VARIABLE_CHANGED:
+            return <WiredTriggerVariableChangedView />;
+        case WiredTriggerLayout.USER_RELEASES:
+            return <WiredTriggerUserReleasesView />;
+        case WiredTriggerLayout.TRANSACTION_COMPLETED:
+        case WiredTriggerLayout.TRANSACTION_FAILED:
+            return <WiredTriggerTransactionView />;
     }
 
     return null;

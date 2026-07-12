@@ -1,6 +1,10 @@
 import { RoomChatSettings, RoomObjectCategory } from '@nitrots/nitro-renderer';
 import { FC, useEffect, useMemo, useRef, useState } from 'react';
 import { ChatBubbleMessage, GetRoomEngine } from '../../../../api';
+import { TruffleChatText } from '../../../../truffle';
+
+const WHITE_TEXT_BUBBLES = new Set([ 2, 8, 10, 14, 15, 24, 25, 27, 31 ]);
+const HIDDEN_USERNAME_BUBBLES = new Set([ 1, 34, 200, 201, 202, 210, 211, 212, 220, 221, 222, 223, 224, 225, 226, 227, 228, 229, 250, 251, 252 ]);
 
 interface ChatWidgetMessageViewProps
 {
@@ -23,11 +27,30 @@ export const ChatWidgetMessageView: FC<ChatWidgetMessageViewProps> = props =>
             case RoomChatSettings.CHAT_BUBBLE_WIDTH_NORMAL:
                 return 350;
             case RoomChatSettings.CHAT_BUBBLE_WIDTH_THIN:
-                return 240;
+                return 230;
             case RoomChatSettings.CHAT_BUBBLE_WIDTH_WIDE:
-                return 2000;
+                return 900;
         }
     }, [ bubbleWidth ]);
+    const bubbleStyle = chat.bubbleWidth
+        ? { width: chat.bubbleWidth, maxWidth: chat.bubbleWidth }
+        : { maxWidth: getBubbleWidth };
+    const truffleStyles = useMemo(() =>
+    {
+        switch(chat.type)
+        {
+            case 1:
+                return { name: 'u_chat_name_whisper', message: 'u_chat_whisper' };
+            case 2:
+                return { name: 'u_chat_name', message: 'u_chat_shout' };
+            default:
+                return { name: 'u_chat_name', message: 'u_chat_speak' };
+        }
+    }, [ chat.type ]);
+    const bubbleTextColor = (chat.styleId === 26) ? 0xC59432 : (WHITE_TEXT_BUBBLES.has(chat.styleId) ? 0xFFFFFF : 0x000000);
+    const messageColor = ((chat.type === 1) && (bubbleTextColor === 0x000000)) ? 0x595959 : bubbleTextColor;
+    const contentWidth = Math.max(1, (chat.bubbleWidth || getBubbleWidth) - 40);
+    const username = HIDDEN_USERNAME_BUBBLES.has(chat.styleId) ? '' : chat.username;
 
     useEffect(() =>
     {
@@ -79,14 +102,21 @@ export const ChatWidgetMessageView: FC<ChatWidgetMessageViewProps> = props =>
         <div ref={ elementRef } className={ `bubble-container ${ isVisible ? 'visible' : 'invisible' }` } onClick={ event => GetRoomEngine().selectRoomObject(chat.roomId, chat.senderId, RoomObjectCategory.UNIT) }>
             { (chat.styleId === 0) &&
                 <div className="user-container-bg" style={ { backgroundColor: chat.color } } /> }
-            <div className={ `chat-bubble bubble-${ chat.styleId } type-${ chat.type }` } style={ { maxWidth: getBubbleWidth } }>
+            <div className={ `chat-bubble bubble-${ chat.styleId } type-${ chat.type }` } style={ bubbleStyle }>
                 <div className="user-container">
                     { chat.imageUrl && (chat.imageUrl.length > 0) &&
                         <div className="user-image" style={ { backgroundImage: `url(${ chat.imageUrl })` } } /> }
                 </div>
-                <div className="chat-content">
-                    <b className="username mr-1" dangerouslySetInnerHTML={ { __html: `${ chat.username }: ` } } />
-                    <span className="message" dangerouslySetInnerHTML={ { __html: `${ chat.formattedText }` } } />
+                <div className="chat-content" style={ { textAlign: chat.textAlign ?? undefined } }>
+                    <TruffleChatText
+                        username={ username }
+                        text={ chat.text }
+                        nameStyle={ truffleStyles.name }
+                        messageStyle={ truffleStyles.message }
+                        maxWidth={ contentWidth }
+                        nameColor={ bubbleTextColor }
+                        messageColor={ messageColor }
+                    />
                 </div>
                 <div className="pointer" />
             </div>

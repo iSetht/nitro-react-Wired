@@ -907,7 +907,21 @@ const useCatalogState = () =>
         }
     }, []);
 
-    return { isVisible, setIsVisible, isBusy, pageId, previousPageId, currentType, rootNode, offersToNodes, currentPage, setCurrentPage, currentOffer, setCurrentOffer, activeNodes, searchResult, setSearchResult, frontPageItems, roomPreviewer, navigationHidden, setNavigationHidden, purchaseOptions, setPurchaseOptions, catalogOptions, setCatalogOptions, getNodeById, getNodeByName, activateNode, openPageById, openPageByName, openPageByOfferId, requestOfferToMover };
+
+    const switchCatalogType = useCallback((type: string) =>
+    {
+        setCurrentType(type);
+        setRootNode(null);
+        setOffersToNodes(null);
+        setCurrentPage(null);
+        setCurrentOffer(null);
+        setActiveNodes([]);
+        setSearchResult(null);
+        requestedPage.current.resetRequest();
+    }, []);
+
+
+    return { isVisible, setIsVisible, isBusy, pageId, previousPageId, currentType, rootNode, offersToNodes, currentPage, setCurrentPage, currentOffer, setCurrentOffer, activeNodes, searchResult, setSearchResult, frontPageItems, roomPreviewer, navigationHidden, setNavigationHidden, purchaseOptions, setPurchaseOptions, catalogOptions, setCatalogOptions, getNodeById, getNodeByName, activateNode, openPageById, openPageByName, openPageByOfferId, requestOfferToMover, switchCatalogType };
 }
 
 export const useCatalog = () => useBetween(useCatalogState);

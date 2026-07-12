@@ -23,6 +23,8 @@ export const ObjectLocationView: FC<ObjectLocationViewProps> = props =>
         const getObjectLocation = () =>
         {
             const roomSession = GetRoomSession();
+            if(!roomSession) return null;
+
             const objectBounds = GetRoomObjectBounds(roomSession.roomId, objectId, category, 1);
 
             return objectBounds;
@@ -32,7 +34,12 @@ export const ObjectLocationView: FC<ObjectLocationViewProps> = props =>
         {
             const bounds = getObjectLocation();
 
-            if(!bounds || !elementRef.current) return;
+            if(!bounds || !elementRef.current)
+            {
+                setPos(prevValue => ((prevValue.x === -1) && (prevValue.y === -1)) ? prevValue : { x: -1, y: -1 });
+
+                return;
+            }
 
             setPos({
                 x: Math.round(((bounds.left + (bounds.width / 2)) - (elementRef.current.offsetWidth / 2))),

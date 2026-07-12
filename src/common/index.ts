@@ -1,5 +1,6 @@
 export * from './AutoGrid';
 export * from './Base';
+export * from './bitmap-text';
 export * from './Button';
 export * from './ButtonGroup';
 export * from './card';

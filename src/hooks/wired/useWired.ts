@@ -1,9 +1,11 @@
-import { ConditionDefinition, Triggerable, TriggerDefinition, UpdateActionMessageComposer, UpdateConditionMessageComposer, UpdateTriggerMessageComposer, WiredActionDefinition, WiredFurniActionEvent, WiredFurniConditionEvent, WiredFurniTriggerEvent, WiredSaveSuccessEvent } from '@nitrots/nitro-renderer';
+import { ConditionDefinition, Triggerable, TriggerDefinition, UpdateActionMessageComposer, UpdateConditionMessageComposer, UpdateTriggerMessageComposer, WiredActionDefinition, WiredFurniActionEvent, WiredFurniConditionEvent, WiredFurniTriggerEvent, WiredSaveSuccessEvent, SelectorDefinition, WiredFurniSelectorEvent, UpdateSelectorMessageComposer, VariableDefinition, WiredFurniVariableEvent, UpdateVariableMessageComposer, ExtraDefinition, WiredFurniExtraEvent, UpdateExtraMessageComposer } from '@nitrots/nitro-renderer';
 import { useEffect, useState } from 'react';
 import { useBetween } from 'use-between';
 import { IsOwnerOfFloorFurniture, LocalizeText, SendMessageComposer, WiredFurniType, WiredSelectionVisualizer } from '../../api';
 import { useMessageEvent } from '../events';
 import { useNotification } from '../notification';
+
+const DEFAULT_MAXIMUM_FURNI_SELECTION_COUNT = 20;
 
 const useWiredState = () =>
 {
@@ -15,8 +17,13 @@ const useWiredState = () =>
     const [ allowsFurni, setAllowsFurni ] = useState<number>(WiredFurniType.STUFF_SELECTION_OPTION_NONE);
     const { showConfirm = null } = useNotification();
 
+    const serializedSelectionLimit = trigger?.maximumItemSelectionCount ?? 0;
+    const maximumItemSelectionCount = serializedSelectionLimit > 0 ? serializedSelectionLimit : (allowsFurni > WiredFurniType.STUFF_SELECTION_OPTION_NONE ? DEFAULT_MAXIMUM_FURNI_SELECTION_COUNT : 0);
+
     const saveWired = () =>
     {
+        if(!trigger || trigger.canModify === false) return;
+
         const save = (trigger: Triggerable) =>
         {
             if(!trigger) return;
@@ -34,6 +41,18 @@ const useWiredState = () =>
             else if(trigger instanceof ConditionDefinition)
             {
                 SendMessageComposer(new UpdateConditionMessageComposer(trigger.id, intParams, stringParam, furniIds, trigger.stuffTypeSelectionCode));
+            }
+            else if(trigger instanceof SelectorDefinition)
+            {
+                SendMessageComposer(new UpdateSelectorMessageComposer(trigger.id, intParams, stringParam, furniIds, trigger.stuffTypeSelectionCode));
+            }
+            else if(trigger instanceof VariableDefinition)
+            {
+                SendMessageComposer(new UpdateVariableMessageComposer(trigger.id, (intParams.length > 0) ? intParams[0] : 1, stringParam, (intParams.length > 1) ? String(intParams[1]) : trigger.value));
+            }
+            else if(trigger instanceof ExtraDefinition)
+            {
+                SendMessageComposer(new UpdateExtraMessageComposer(trigger.id, intParams, stringParam, furniIds, trigger.stuffTypeSelectionCode));
             }
         }
 
@@ -69,7 +88,7 @@ const useWiredState = () =>
                 WiredSelectionVisualizer.hide(objectId);
             }
 
-            else if(newFurniIds.length < trigger.maximumItemSelectionCount)
+            else if(newFurniIds.length < maximumItemSelectionCount)
             {
                 newFurniIds.push(objectId);
 
@@ -108,6 +127,27 @@ const useWiredState = () =>
         setTrigger(parser.definition);
     });
 
+    useMessageEvent<WiredFurniSelectorEvent >(WiredFurniSelectorEvent , event =>
+    {
+        const parser = event.getParser();
+
+        setTrigger(parser.definition);
+    });
+
+    useMessageEvent<WiredFurniVariableEvent>(WiredFurniVariableEvent, event =>
+    {
+        const parser = event.getParser();
+
+        setTrigger(parser.definition);
+    });
+
+    useMessageEvent<WiredFurniExtraEvent>(WiredFurniExtraEvent, event =>
+    {
+        const parser = event.getParser();
+
+        setTrigger(parser.definition);
+    });
+
     useEffect(() =>
     {
         if(!trigger) return;
@@ -127,7 +167,7 @@ const useWiredState = () =>
         }
     }, [ trigger ]);
 
-    return { trigger, setTrigger, intParams, setIntParams, stringParam, setStringParam, furniIds, setFurniIds, actionDelay, setActionDelay, setAllowsFurni, saveWired, selectObjectForWired };
+    return { trigger, setTrigger, intParams, setIntParams, stringParam, setStringParam, furniIds, setFurniIds, actionDelay, setActionDelay, maximumItemSelectionCount, setAllowsFurni, saveWired, selectObjectForWired };
 }
 
 export const useWired = () => useBetween(useWiredState);

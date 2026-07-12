@@ -25,6 +25,102 @@
     }
 }
 
+.chat-effect {
+    display: inline-block;
+    white-space: pre-wrap;
+
+    .chat-effect-letter {
+        display: inline-block;
+        white-space: pre;
+    }
+}
+
+.chat-effect-wave .chat-effect-letter {
+    animation: chat-effect-wave 1.35s linear infinite;
+    animation-delay: calc((var(--i) * 0.06s) - 1.35s);
+}
+
+.chat-effect-shake .chat-effect-letter {
+    animation: chat-effect-shake 0.32s steps(2, end) infinite;
+    animation-delay: calc(var(--i) * -0.041s);
+}
+
+.chat-effect-pulse {
+    font-weight: inherit;
+}
+
+.chat-effect-pulse-letter {
+    position: relative;
+    display: inline-block;
+
+    &::before {
+        content: attr(data-pulse);
+        position: absolute;
+        inset: 0;
+        color: currentColor;
+        opacity: 0;
+        pointer-events: none;
+        transform-origin: center;
+        animation: chat-effect-pulse 1.12s ease-out infinite;
+    }
+}
+
+.chat-effect-cuss-letter {
+    position: relative;
+    width: 0.72em;
+    text-align: center;
+
+    &::before {
+        content: attr(data-c1);
+        animation: chat-effect-cuss 0.54s steps(1, end) infinite;
+        animation-delay: calc(var(--i) * -0.071s);
+        font-weight: inherit;
+    }
+}
+
+@keyframes chat-effect-wave {
+    0%, 100% { transform: translateY(0); }
+    12.5% { transform: translateY(-1.5px); }
+    25% { transform: translateY(-3px); }
+    37.5% { transform: translateY(-1.5px); }
+    50% { transform: translateY(0); }
+    62.5% { transform: translateY(1.2px); }
+    75% { transform: translateY(2px); }
+    87.5% { transform: translateY(1.2px); }
+}
+
+@keyframes chat-effect-shake {
+    0%, 100% { transform: translateX(0) rotate(0deg); }
+    20% { transform: translateX(-0.7px) rotate(-0.6deg); }
+    40% { transform: translateX(0.8px) rotate(0.6deg); }
+    60% { transform: translateX(-0.5px) rotate(0deg); }
+    80% { transform: translateX(0.6px) rotate(0.4deg); }
+}
+
+@keyframes chat-effect-pulse {
+    0%, 100% {
+        opacity: 0;
+        transform: scale(1);
+    }
+    18% {
+        opacity: 0.55;
+        transform: scale(1.08);
+    }
+    62% {
+        opacity: 0;
+        transform: scale(1.42);
+    }
+}
+
+@keyframes chat-effect-cuss {
+    0% { content: attr(data-c1); }
+    16.666% { content: attr(data-c2); }
+    33.333% { content: attr(data-c3); }
+    50% { content: attr(data-c4); }
+    66.666% { content: attr(data-c5); }
+    83.333%, 100% { content: attr(data-c6); }
+}
+
 .bubble-container {
     position: absolute;
     width: fit-content;
@@ -63,6 +159,18 @@
         border-image-outset: 2px 0px 0px 0px;
         border-image-repeat: repeat repeat;
 
+        .message {
+            display: inline;
+            max-height: 140px;
+            overflow: hidden;
+            white-space: pre-wrap;
+        }
+
+        .truffle-chat-text {
+            display: inline-block;
+            vertical-align: top;
+        }
+
         .pointer {
             position: absolute;
             left: 50%;
@@ -98,6 +206,21 @@
 
         &.bubble-0 {
             border-image-source: url('@/assets/images/chat/chatbubbles/bubble_0_transparent.png');
+            min-height: 21px;
+
+            .chat-content {
+                min-height: 22px;
+                margin-left: 24px;
+                padding-top: 1px;
+                padding-bottom: 1px;
+                position: relative;
+                top: 0;
+            }
+
+            .user-image {
+                top: -20px;
+                left: -12.25px;
+            }
 
             .pointer {
                 background: url('@/assets/images/chat/chatbubbles/bubble_0_1_33_34_pointer.png');
@@ -606,6 +729,221 @@
             }
         }
 
+        &.bubble-46 {
+            border-image-source: url('@/assets/images/chat/chatbubbles/bubble_red_team.png');
+
+            border-image-slice: 19 6 7 37 fill;
+            border-image-width: 19px 6px 7px 37px;
+            border-image-outset: 5px 0px 0px 3px;
+
+            .pointer {
+                background: url('@/assets/images/chat/chatbubbles/bubble_3_pointer.png');
+            }
+        }
+
+        &.bubble-47 {
+            border-image-source: url('@/assets/images/chat/chatbubbles/bubble_green_team.png');
+
+            border-image-slice: 19 6 7 37 fill;
+            border-image-width: 19px 6px 7px 37px;
+            border-image-outset: 5px 0px 0px 3px;
+
+            .pointer {
+                background: url('@/assets/images/chat/chatbubbles/bubble_6_pointer.png');
+            }
+        }
+
+        &.bubble-48 {
+            border-image-source: url('@/assets/images/chat/chatbubbles/bubble_blue_team.png');
+
+            border-image-slice: 19 6 7 37 fill;
+            border-image-width: 19px 6px 7px 37px;
+            border-image-outset: 5px 0px 0px 3px;
+
+            .pointer {
+                background: url('@/assets/images/chat/chatbubbles/bubble_4_pointer.png');
+            }
+        }
+
+        &.bubble-49 {
+            border-image-source: url('@/assets/images/chat/chatbubbles/bubble_yellow_team.png');
+
+            border-image-slice: 19 6 7 37 fill;
+            border-image-width: 19px 6px 7px 37px;
+            border-image-outset: 5px 0px 0px 3px;
+
+            .pointer {
+                background: url('@/assets/images/chat/chatbubbles/bubble_5_pointer.png');
+            }
+        }
+
+        &.bubble-200,
+        &.bubble-201,
+        &.bubble-202,
+        &.bubble-210,
+        &.bubble-211,
+        &.bubble-212,
+        &.bubble-220,
+        &.bubble-221,
+        &.bubble-222,
+        &.bubble-223,
+        &.bubble-224,
+        &.bubble-225,
+        &.bubble-226,
+        &.bubble-227,
+        &.bubble-228,
+        &.bubble-229,
+        &.bubble-250,
+        &.bubble-251,
+        &.bubble-252 {
+            --show-message-bubble: url('@/assets/images/chat/chatbubbles/bubble_red_show.png');
+            --show-message-icon: url('@/assets/images/chat/chatbubbles/show_exclamation_circle.png');
+
+            min-height: 24px;
+            border-image-source: var(--show-message-bubble);
+            border-image-slice: 7 6 6 39 fill;
+            border-image-width: 7px 6px 6px 39px;
+            border-image-outset: 2px 0px 0px 0px;
+            color: #111111;
+            overflow: visible;
+
+            &.type-1 {
+                .message {
+                    font-style: unset;
+                    color: inherit;
+                }
+            }
+
+            .user-container,
+            .username {
+                display: none;
+            }
+
+            .chat-content {
+                position: relative;
+                z-index: 2;
+                min-height: 22px;
+                margin-left: 38px;
+                padding: 4px 6px 3px 3px;
+                color: #111111;
+            }
+
+            &::before {
+                content: ' ';
+                position: absolute;
+                z-index: 2;
+                width: 20px;
+                height: 20px;
+                left: 8px;
+                top: 50%;
+                transform: translateY(-50%);
+                background-image: var(--show-message-icon);
+                background-position: center;
+                background-repeat: no-repeat;
+                background-size: contain;
+                image-rendering: pixelated;
+            }
+
+            .pointer {
+                display: none;
+            }
+        }
+
+        &.bubble-200 {
+            --show-message-bubble: url('@/assets/images/chat/chatbubbles/bubble_red_show.png');
+            --show-message-icon: url('@/assets/images/chat/chatbubbles/show_exclamation_circle.png');
+        }
+
+        &.bubble-201 {
+            --show-message-bubble: url('@/assets/images/chat/chatbubbles/bubble_green_show.png');
+            --show-message-icon: url('@/assets/images/chat/chatbubbles/show_green_circle_exclamation.png');
+        }
+
+        &.bubble-202 {
+            --show-message-bubble: url('@/assets/images/chat/chatbubbles/bubble_blue_show.png');
+            --show-message-icon: url('@/assets/images/chat/chatbubbles/show_exclamation_circle.png');
+        }
+
+        &.bubble-210 {
+            --show-message-bubble: url('@/assets/images/chat/chatbubbles/bubble_red_show.png');
+            --show-message-icon: url('@/assets/images/chat/chatbubbles/show_shield_red.png');
+        }
+
+        &.bubble-211 {
+            --show-message-bubble: url('@/assets/images/chat/chatbubbles/bubble_blue_show.png');
+            --show-message-icon: url('@/assets/images/chat/chatbubbles/show_invert_exclamation_blue.png');
+        }
+
+        &.bubble-212 {
+            --show-message-bubble: url('@/assets/images/chat/chatbubbles/bubble_warning_show.png');
+            --show-message-icon: url('@/assets/images/chat/chatbubbles/show_warning.png');
+        }
+
+        &.bubble-220 {
+            --show-message-bubble: url('@/assets/images/chat/chatbubbles/bubble_red_show.png');
+            --show-message-icon: url('@/assets/images/chat/chatbubbles/show_x.png');
+        }
+
+        &.bubble-221 {
+            --show-message-bubble: url('@/assets/images/chat/chatbubbles/bubble_red_show.png');
+            --show-message-icon: url('@/assets/images/chat/chatbubbles/show_red_x.png');
+        }
+
+        &.bubble-222 {
+            --show-message-bubble: url('@/assets/images/chat/chatbubbles/bubble_midgreen_show.png');
+            --show-message-icon: url('@/assets/images/chat/chatbubbles/show_checkmark.png');
+        }
+
+        &.bubble-223 {
+            --show-message-bubble: url('@/assets/images/chat/chatbubbles/bubble_midgreen_show.png');
+            --show-message-icon: url('@/assets/images/chat/chatbubbles/show_green_checkmark.png');
+        }
+
+        &.bubble-224 {
+            --show-message-bubble: url('@/assets/images/chat/chatbubbles/bubble_purple_show.png');
+            --show-message-icon: url('@/assets/images/chat/chatbubbles/show_questionmark.png');
+        }
+
+        &.bubble-225 {
+            --show-message-bubble: url('@/assets/images/chat/chatbubbles/bubble_purple_show.png');
+            --show-message-icon: url('@/assets/images/chat/chatbubbles/show_question_mark.png');
+        }
+
+        &.bubble-226 {
+            --show-message-bubble: url('@/assets/images/chat/chatbubbles/bubble_jade_show.png');
+            --show-message-icon: url('@/assets/images/chat/chatbubbles/show_up_arrow.png');
+        }
+
+        &.bubble-227 {
+            --show-message-bubble: url('@/assets/images/chat/chatbubbles/bubble_jade_show.png');
+            --show-message-icon: url('@/assets/images/chat/chatbubbles/show_arrow_up_circle.png');
+        }
+
+        &.bubble-228 {
+            --show-message-bubble: url('@/assets/images/chat/chatbubbles/bubble_darkred_show.png');
+            --show-message-icon: url('@/assets/images/chat/chatbubbles/show_down_arrow.png');
+        }
+
+        &.bubble-229 {
+            --show-message-bubble: url('@/assets/images/chat/chatbubbles/bubble_darkred_show.png');
+            --show-message-icon: url('@/assets/images/chat/chatbubbles/show_down_arrow_circle.png');
+        }
+
+        &.bubble-250 {
+            --show-message-bubble: url('@/assets/images/chat/chatbubbles/bubble_skull_show.png');
+            --show-message-icon: url('@/assets/images/chat/chatbubbles/showmsg_skull.png');
+        }
+
+        &.bubble-251 {
+            --show-message-bubble: url('@/assets/images/chat/chatbubbles/bubble_skull2_show.png');
+            --show-message-icon: url('@/assets/images/chat/chatbubbles/showmsg_skull.png');
+        }
+
+        &.bubble-252 {
+            --show-message-bubble: url('@/assets/images/chat/chatbubbles/bubble_magnify_show.png');
+            --show-message-icon: url('@/assets/images/chat/chatbubbles/show_magnify.png');
+        }
+
         &.bubble-35 {
             border-image-source: url('@/assets/images/chat/chatbubbles/bubble_35.png');
 
@@ -697,7 +1035,7 @@
 
             .user-image {
                 position: absolute;
-                top: -15px;
+                top: -16px;
                 left: -9.25px;
                 width: 45px;
                 height: 65px;
@@ -915,5 +1253,73 @@
             top: 10px;
             background: url('@/assets/images/chat/chatbubbles/bubble_38_extra.png');
         }
+    }
+
+    &.bubble-46 {
+        background-image: url('@/assets/images/chat/chatbubbles/bubble_red_team.png');
+    }
+
+    &.bubble-47 {
+        background-image: url('@/assets/images/chat/chatbubbles/bubble_green_team.png');
+    }
+
+    &.bubble-48 {
+        background-image: url('@/assets/images/chat/chatbubbles/bubble_blue_team.png');
+    }
+
+    &.bubble-49 {
+        background-image: url('@/assets/images/chat/chatbubbles/bubble_yellow_team.png');
+    }
+
+    &.bubble-200,
+    &.bubble-210,
+    &.bubble-220,
+    &.bubble-221 {
+        background-image: url('@/assets/images/chat/chatbubbles/bubble_red_show.png');
+    }
+
+    &.bubble-201 {
+        background-image: url('@/assets/images/chat/chatbubbles/bubble_green_show.png');
+    }
+
+    &.bubble-202,
+    &.bubble-211 {
+        background-image: url('@/assets/images/chat/chatbubbles/bubble_blue_show.png');
+    }
+
+    &.bubble-212 {
+        background-image: url('@/assets/images/chat/chatbubbles/bubble_warning_show.png');
+    }
+
+    &.bubble-222,
+    &.bubble-223 {
+        background-image: url('@/assets/images/chat/chatbubbles/bubble_midgreen_show.png');
+    }
+
+    &.bubble-224,
+    &.bubble-225 {
+        background-image: url('@/assets/images/chat/chatbubbles/bubble_purple_show.png');
+    }
+
+    &.bubble-226,
+    &.bubble-227 {
+        background-image: url('@/assets/images/chat/chatbubbles/bubble_jade_show.png');
+    }
+
+    &.bubble-228,
+    &.bubble-229 {
+        background-image: url('@/assets/images/chat/chatbubbles/bubble_darkred_show.png');
+    }
+
+    &.bubble-250 {
+        background-image: url('@/assets/images/chat/chatbubbles/bubble_skull_show.png');
+    }
+
+    &.bubble-251 {
+        background-image: url('@/assets/images/chat/chatbubbles/bubble_skull2_show.png');
+    }
+
+    &.bubble-252 {
+        background-image: url('@/assets/images/chat/chatbubbles/bubble_magnify_show.png');
     }
 }

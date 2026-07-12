@@ -1,5 +1,5 @@
 import { HighScoreDataType, ObjectDataFactory, RoomEngineTriggerWidgetEvent, RoomObjectVariable } from '@nitrots/nitro-renderer';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { GetRoomEngine } from '../../../../api';
 import { useRoomEngineEvent } from '../../../events';
 import { useRoom } from '../../useRoom';
@@ -15,9 +15,14 @@ const useFurnitureHighScoreWidgetState = () =>
     const getScoreType = (type: number) => SCORE_TYPES[type];
     const getClearType = (type: number) => CLEAR_TYPES[type];
 
-    useRoomEngineEvent<RoomEngineTriggerWidgetEvent>(RoomEngineTriggerWidgetEvent.REQUEST_HIGH_SCORE_DISPLAY, event =>
+    useEffect(() =>
     {
-        const roomObject = GetRoomEngine().getRoomObject(event.roomId, event.objectId, event.category);
+        setStuffDatas(new Map());
+    }, [ roomSession?.roomId ]);
+
+    const refreshStuffData = (roomId: number, objectId: number, category: number) =>
+    {
+        const roomObject = GetRoomEngine().getRoomObject(roomId, objectId, category);
     
         if(!roomObject) return;
 
@@ -25,6 +30,7 @@ const useFurnitureHighScoreWidgetState = () =>
         const stuffData = (ObjectDataFactory.getData(formatKey) as HighScoreDataType);
 
         stuffData.initializeFromRoomObjectModel(roomObject.model);
+        stuffData.setLegacyString(roomObject.getState(0).toString());
 
         setStuffDatas(prevValue =>
         {
@@ -34,11 +40,18 @@ const useFurnitureHighScoreWidgetState = () =>
 
             return newValue;
         });
+    }
+
+    useRoomEngineEvent<RoomEngineTriggerWidgetEvent>(RoomEngineTriggerWidgetEvent.REQUEST_HIGH_SCORE_DISPLAY, event =>
+    {
+        if(!roomSession || (event.roomId !== roomSession.roomId)) return;
+
+        refreshStuffData(event.roomId, event.objectId, event.category);
     });
 
     useRoomEngineEvent<RoomEngineTriggerWidgetEvent>(RoomEngineTriggerWidgetEvent.REQUEST_HIDE_HIGH_SCORE_DISPLAY, event =>
     {
-        if(event.roomId !== roomSession.roomId) return;
+        if(roomSession && (event.roomId !== roomSession.roomId)) return;
 
         setStuffDatas(prevValue =>
         {

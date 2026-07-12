@@ -13,6 +13,7 @@ export class NotificationBubbleType
     public static SOUNDMACHINE: string = 'soundmachine';
     public static PETLEVEL: string = 'petlevel';
     public static CLUBGIFT: string = 'clubgift';
+    public static WIRED_CHEST: string = 'wired_chest';
     public static BUYFURNI: string = 'buyfurni';
     public static VIP: string = 'vip';
     public static ROOMMESSAGESPOSTED: string = 'roommessagesposted';

@@ -1,3 +1,46 @@
+.bitmap-text {
+    display: inline;
+    color: currentColor;
+    font-size: 0;
+    line-height: 0;
+    white-space: normal;
+    overflow-wrap: normal;
+    vertical-align: baseline;
+
+    .bitmap-text-word {
+        display: inline-block;
+        white-space: nowrap;
+        vertical-align: top;
+    }
+
+    .bitmap-text-space {
+        display: inline-block;
+        height: 1px;
+        vertical-align: top;
+    }
+
+    .bitmap-text-glyph-box {
+        display: inline-block;
+        position: relative;
+        vertical-align: top;
+    }
+
+    .bitmap-text-glyph {
+        position: absolute;
+        display: block;
+        background-color: currentColor;
+        background-repeat: no-repeat;
+        image-rendering: pixelated;
+        image-rendering: -moz-crisp-edges;
+        mask-repeat: no-repeat;
+        -webkit-mask-repeat: no-repeat;
+
+        &.preserve-color {
+            background-color: transparent;
+        }
+    }
+}
+
 .layout-grid-item {
     height: var(--nitro-grid-column-min-height, unset);
     background-position: center;

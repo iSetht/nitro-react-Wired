@@ -1,9 +1,9 @@
 import { FC, useEffect, useState } from 'react';
-import ReactSlider from 'react-slider';
 import { LocalizeText, WiredFurniType } from '../../../../api';
 import { Column, Text } from '../../../../common';
 import { useWired } from '../../../../hooks';
 import { WiredConditionBaseView } from './WiredConditionBaseView';
+import { WiredSlider } from '../WiredControls';
 
 export const WiredConditionUserCountInRoomView: FC<{}> = props =>
 {
@@ -31,8 +31,7 @@ export const WiredConditionUserCountInRoomView: FC<{}> = props =>
         <WiredConditionBaseView requiresFurni={ WiredFurniType.STUFF_SELECTION_OPTION_NONE } hasSpecialInput={ true } save={ save }>
             <Column gap={ 1 }>
                 <Text bold>{ LocalizeText('wiredfurni.params.usercountmin', [ 'value' ], [ min.toString() ]) }</Text>
-                <ReactSlider
-                    className={ 'nitro-slider' }
+                <WiredSlider
                     min={ 1 }
                     max={ 50 }
                     value={ min }
@@ -40,8 +39,7 @@ export const WiredConditionUserCountInRoomView: FC<{}> = props =>
             </Column>
             <Column gap={ 1 }>
                 <Text bold>{ LocalizeText('wiredfurni.params.usercountmax', [ 'value' ], [ max.toString() ]) }</Text>
-                <ReactSlider
-                    className={ 'nitro-slider' }
+                <WiredSlider
                     min={ 1 }
                     max={ 50 }
                     value={ max }

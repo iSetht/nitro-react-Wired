@@ -1,7 +1,7 @@
-import { RoomEngineObjectEvent, RoomEngineUseProductEvent, RoomObjectCategory, RoomObjectType, RoomObjectVariable, RoomSessionPetInfoUpdateEvent, RoomSessionPetStatusUpdateEvent, RoomSessionUserDataUpdateEvent } from '@nitrots/nitro-renderer';
-import { useEffect, useState } from 'react';
-import { AvatarInfoFurni, AvatarInfoName, AvatarInfoPet, AvatarInfoRentableBot, AvatarInfoUser, AvatarInfoUtilities, CanManipulateFurniture, FurniCategory, GetRoomEngine, GetSessionDataManager, IAvatarInfo, IsOwnerOfFurniture, RoomWidgetUpdateRoomObjectEvent, UseProductItem } from '../../../api';
-import { useRoomEngineEvent, useRoomSessionManagerEvent, useUiEvent } from '../../events';
+import { RoomEngineObjectEvent, RoomEngineUseProductEvent, RoomObjectCategory, RoomObjectType, RoomObjectVariable, RoomSessionPetInfoUpdateEvent, RoomSessionPetStatusUpdateEvent, RoomSessionUserDataUpdateEvent, WiredClickUserReceivedEvent  } from '@nitrots/nitro-renderer';
+import { useEffect, useRef, useState } from 'react';
+import { AvatarInfoFurni, AvatarInfoName, AvatarInfoPet, AvatarInfoRentableBot, AvatarInfoUser, AvatarInfoUtilities, CanManipulateFurniture, FurniCategory, GetRoomEngine, GetSessionDataManager, IAvatarInfo, IsOwnerOfFurniture, RoomWidgetUpdateRoomObjectEvent, SetWiredCreatorToolsSettings, UseProductItem } from '../../../api';
+import { useMessageEvent, useRoomEngineEvent, useRoomSessionManagerEvent, useUiEvent } from '../../events';
 import { useFriends } from '../../friends';
 import { useWired } from '../../wired';
 import { useObjectDeselectedEvent, useObjectRollOutEvent, useObjectRollOverEvent, useObjectSelectedEvent } from '../engine';
@@ -16,6 +16,10 @@ const useAvatarInfoWidgetState = () =>
     const [ confirmingProduct, setConfirmingProduct ] = useState<UseProductItem>(null);
     const [ pendingPetId, setPendingPetId ] = useState<number>(-1);
     const [ isDecorating, setIsDecorating ] = useState(false);
+    // suppressMenu: hides the above-head context menu (trade/moderate) while keeping the infostand.
+    // pendingUnitInfoRef: holds avatar info for a UNIT click until packet 108 arrives, preventing any flash.
+    const [ suppressMenu, setSuppressMenu ] = useState(false);
+    const pendingUnitInfoRef = useRef<IAvatarInfo>(null);
     const { friends = [] } = useFriends();
     const { selectObjectForWired = null } = useWired();
     const { roomSession = null } = useRoom();
@@ -101,7 +105,16 @@ const useAvatarInfoWidgetState = () =>
 
         if(!info) return;
 
-        setAvatarInfo(info);
+        // For UNIT clicks, hold the info until packet 108 arrives (prevents any flash).
+        // Furni/wall info is shown immediately as before — no 108 is involved there.
+        if(category === RoomObjectCategory.UNIT)
+        {
+            pendingUnitInfoRef.current = info;
+        }
+        else
+        {
+            setAvatarInfo(info);
+        }
     }
 
     const processUsableRoomObject = (objectId: number) =>
@@ -271,6 +284,8 @@ const useAvatarInfoWidgetState = () =>
 
     useObjectDeselectedEvent(event =>
     {
+        pendingUnitInfoRef.current = null;
+        setSuppressMenu(false);
         setAvatarInfo(null);
         setProductBubbles([]);
     });
@@ -328,6 +343,20 @@ const useAvatarInfoWidgetState = () =>
         }
     });
 
+    // Packet 108 (WiredClickUserResponse) is now always sent by the server when a user clicks depending on true/false of openMenu decides if we open
+    useMessageEvent<WiredClickUserReceivedEvent>(WiredClickUserReceivedEvent, event =>
+    {
+        const parser = event.getParser();
+        const pending = pendingUnitInfoRef.current;
+        pendingUnitInfoRef.current = null;
+
+        SetWiredCreatorToolsSettings({ handitemPassingBlocked: parser.handitemPassingBlocked });
+
+        if(pending) setAvatarInfo(pending);
+
+        setSuppressMenu(!parser.openMenu);
+    });
+
     useEffect(() =>
     {
         if(!avatarInfo) return;
@@ -349,7 +378,7 @@ const useAvatarInfoWidgetState = () =>
         roomSession.isDecorating = isDecorating;
     }, [ roomSession, isDecorating ]);
 
-    return { avatarInfo, setAvatarInfo, activeNameBubble, setActiveNameBubble, nameBubbles, productBubbles, confirmingProduct, isDecorating, setIsDecorating, removeNameBubble, removeProductBubble, updateConfirmingProduct, getObjectName };
+    return { avatarInfo, setAvatarInfo, activeNameBubble, setActiveNameBubble, nameBubbles, productBubbles, confirmingProduct, isDecorating, setIsDecorating, suppressMenu, removeNameBubble, removeProductBubble, updateConfirmingProduct, getObjectName };
 }
 
 export const useAvatarInfoWidget = useAvatarInfoWidgetState;

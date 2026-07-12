@@ -1,6 +1,6 @@
 import { PetRespectComposer, PetType, RoomControllerLevel, RoomObjectCategory, RoomObjectType, RoomObjectVariable, RoomUnitGiveHandItemPetComposer } from '@nitrots/nitro-renderer';
 import { FC, useEffect, useMemo, useState } from 'react';
-import { AvatarInfoPet, GetOwnRoomObject, GetSessionDataManager, LocalizeText, SendMessageComposer } from '../../../../../api';
+import { AvatarInfoPet, CreateLinkEvent, GetOwnRoomObject, GetSessionDataManager, GetWiredCreatorToolsSettings, LocalizeText, SendMessageComposer, WIRED_CREATOR_TOOLS_SETTINGS_EVENT } from '../../../../../api';
 import { useRoom, useSessionInfo } from '../../../../../hooks';
 import { ContextMenuHeaderView } from '../../context-menu/ContextMenuHeaderView';
 import { ContextMenuListItemView } from '../../context-menu/ContextMenuListItemView';
@@ -21,6 +21,7 @@ export const AvatarInfoWidgetPetView: FC<AvatarInfoWidgetPetViewProps> = props =
 {
     const { avatarInfo = null, onClose = null } = props;
     const [ mode, setMode ] = useState(MODE_NORMAL);
+    const [ showInspectButton, setShowInspectButton ] = useState(() => GetWiredCreatorToolsSettings().showInspectButton);
     const { roomSession = null } = useRoom();
     const { petRespectRemaining = 0, respectPet = null } = useSessionInfo();
 
@@ -73,6 +74,9 @@ export const AvatarInfoWidgetPetView: FC<AvatarInfoWidgetPetViewProps> = props =
                 case 'dismount':
                     roomSession.dismountPet(avatarInfo.id);
                     break;
+                case 'inspect':
+                    CreateLinkEvent(`wired-tools/inspect/user/${ avatarInfo.roomIndex }`);
+                    break;
             }
         }
 
@@ -90,6 +94,15 @@ export const AvatarInfoWidgetPetView: FC<AvatarInfoWidgetPetViewProps> = props =
             return MODE_NORMAL;
         });
     }, [ avatarInfo ]);
+
+    useEffect(() =>
+    {
+        const updateSettings = () => setShowInspectButton(GetWiredCreatorToolsSettings().showInspectButton);
+
+        window.addEventListener(WIRED_CREATOR_TOOLS_SETTINGS_EVENT, updateSettings);
+
+        return () => window.removeEventListener(WIRED_CREATOR_TOOLS_SETTINGS_EVENT, updateSettings);
+    }, []);
 
     return (
         <ContextMenuView objectId={ avatarInfo.roomIndex } category={ RoomObjectCategory.UNIT } userType={ RoomObjectType.PET } onClose={ onClose } collapsable={ true }>
@@ -132,6 +145,10 @@ export const AvatarInfoWidgetPetView: FC<AvatarInfoWidgetPetViewProps> = props =
             { canGiveHandItem &&
                 <ContextMenuListItemView onClick={ event => processAction('pass_hand_item') }>
                     { LocalizeText('infostand.button.pass_hand_item') }
+                </ContextMenuListItemView> }
+            { showInspectButton &&
+                <ContextMenuListItemView onClick={ event => processAction('inspect') }>
+                    Inspect
                 </ContextMenuListItemView> }
         </ContextMenuView>
     );

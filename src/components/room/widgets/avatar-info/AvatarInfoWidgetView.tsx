@@ -26,7 +26,7 @@ export const AvatarInfoWidgetView: FC<{}> = props =>
     const [ isGameMode, setGameMode ] = useState(false);
     const [ isDancing, setIsDancing ] = useState(false);
     const [ rentableBotChatEvent, setRentableBotChatEvent ] = useState<RoomWidgetUpdateRentableBotChatEvent>(null);
-    const { avatarInfo = null, setAvatarInfo = null, activeNameBubble = null, setActiveNameBubble = null, nameBubbles = [], removeNameBubble = null, productBubbles = [], confirmingProduct = null, updateConfirmingProduct = null, removeProductBubble = null, isDecorating = false, setIsDecorating = null } = useAvatarInfoWidget();
+    const { avatarInfo = null, setAvatarInfo = null, activeNameBubble = null, setActiveNameBubble = null, nameBubbles = [], removeNameBubble = null, productBubbles = [], confirmingProduct = null, updateConfirmingProduct = null, removeProductBubble = null, isDecorating = false, setIsDecorating = null, suppressMenu = false } = useAvatarInfoWidget();
     const { roomSession = null } = useRoom();
 
     useRoomEngineEvent<RoomEngineEvent>(RoomEngineEvent.NORMAL_MODE, event =>
@@ -54,7 +54,9 @@ export const AvatarInfoWidgetView: FC<{}> = props =>
 
         if(activeNameBubble) return <AvatarInfoWidgetNameView nameInfo={ activeNameBubble } onClose={ () => setActiveNameBubble(null) } />;
 
-        if(avatarInfo)
+        // suppressMenu is set when the WiredTriggerAvatarClicksAvatar has blockMenuOpen=true.
+        // The infostand (bottom-right) still renders — only the above-head context menu is suppressed.
+        if(avatarInfo && !suppressMenu)
         {
             switch(avatarInfo.type)
             {

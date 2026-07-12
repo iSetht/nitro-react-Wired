@@ -12,14 +12,17 @@ const useFurnitureBackgroundColorWidgetState = () =>
     const [ color, setColor ] = useState(0);
     const { roomSession = null } = useRoom();
 
-    const applyToner = () =>
+    const applyToner = (nextColor: number = color) =>
     {
-        const hsl = ColorConverter.rgbToHSL(color);
+        const hsl = ColorConverter.rgbToHSL(nextColor);
         const [ _, hue, saturation, lightness ] = ColorUtils.int_to_8BitVals(hsl);
         SendMessageComposer(new ApplyTonerComposer(objectId, hue, saturation, lightness));
     }
 
-    const toggleToner = () => roomSession.useMultistateItem(objectId);
+    const toggleToner = () =>
+    {
+        roomSession.useMultistateItem(objectId);
+    }
 
     const onClose = () =>
     {

@@ -1,0 +1,96 @@
+.nitro-wired-reward-popups {
+    position: absolute;
+    right: 18px;
+    top: 84px;
+    z-index: 1050;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.nitro-wired-reward-popup {
+    width: 250px;
+    color: #30291f;
+    background: #d8e4ea;
+    border: 1px solid #1d1d1d;
+    border-bottom-width: 2px;
+    border-radius: 8px !important;
+    box-shadow: inset 0 0 0 2px #ffffff, 4px 4px 0 rgba(0, 0, 0, .28) !important;
+    resize: none !important;
+
+    .content-area {
+        background: #d8e4ea;
+    }
+
+    .wired-tools-window-top {
+        position: relative;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        min-height: 31px;
+        padding: 5px 7px 0;
+        background: linear-gradient(#d7e6ed, #c3d8e2);
+        cursor: move;
+    }
+
+    .wired-tools-window-title {
+        flex: 0 0 auto;
+        color: #1d1a16;
+    }
+
+    .nw-btn {
+        width: 24px;
+        height: 20px;
+        padding: 0;
+        border: 0;
+        background-color: transparent;
+        background-repeat: no-repeat;
+        cursor: pointer;
+    }
+
+    .nw-btn-close {
+        position: absolute;
+        top: 4px;
+        right: 8px;
+        z-index: 5;
+        background-image: url('@/assets/images/wired/cancel_wired_menu_nohover.png');
+        background-position: center;
+        background-size: contain;
+
+        &:hover,
+        &:active {
+            background-image: url('@/assets/images/wired/cancel_wired_menu_hover.png');
+        }
+    }
+
+    .reward-popup-body {
+        min-height: 88px;
+        padding: 10px 11px 11px;
+        border-top: 1px solid #4c92b4;
+        background: #eef3f5;
+        box-shadow: inset 0 1px #ffffff;
+    }
+
+    .reward-popup-message {
+        display: block;
+        margin-bottom: 9px;
+        color: #30291f;
+        font-family: Ubuntu, Arial, sans-serif;
+        font-size: 10px;
+        letter-spacing: 0;
+        line-height: 14px;
+        white-space: pre-line;
+    }
+
+    .reward-popup-items {
+        min-height: 44px;
+        align-items: center;
+    }
+
+    .contract-furni-icon,
+    .contract-credit-icon {
+        max-width: 32px;
+        max-height: 32px;
+        image-rendering: pixelated;
+    }
+}

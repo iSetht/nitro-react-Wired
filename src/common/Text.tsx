@@ -1,5 +1,6 @@
 import { FC, useMemo } from 'react';
 import { Base, BaseProps } from './Base';
+import { BitmapFontName, BitmapText } from './bitmap-text';
 import { ColorVariantType, FontSizeType, FontWeightType, TextAlignType } from './types';
 
 export interface TextProps extends BaseProps<HTMLDivElement>
@@ -18,11 +19,14 @@ export interface TextProps extends BaseProps<HTMLDivElement>
     wrap?: boolean;
     noWrap?: boolean;
     textBreak?: boolean;
+    bitmap?: boolean;
+    bitmapFont?: BitmapFontName;
+    bitmapScale?: number;
 }
 
 export const Text: FC<TextProps> = props =>
 {
-    const { variant = 'black', fontWeight = null, fontSize = 0, align = null, bold = false, underline = false, italics = false, truncate = false, center = false, textEnd = false, small = false, wrap = false, noWrap = false, textBreak = false, ...rest } = props;
+    const { variant = 'black', fontWeight = null, fontSize = 0, align = null, bold = false, underline = false, italics = false, truncate = false, center = false, textEnd = false, small = false, wrap = false, noWrap = false, textBreak = false, bitmap = false, bitmapFont = null, bitmapScale = 1, children = null, ...rest } = props;
 
     const getClassNames = useMemo(() =>
     {
@@ -59,5 +63,11 @@ export const Text: FC<TextProps> = props =>
         return newClassNames;
     }, [ variant, fontWeight, fontSize, align, bold, underline, italics, truncate, center, textEnd, small, wrap, noWrap, textBreak ]);
 
-    return <Base classNames={ getClassNames } { ...rest } />;
+    const canUseBitmap = (bitmap || !!bitmapFont) && ((typeof children === 'string') || (typeof children === 'number'));
+
+    return (
+        <Base classNames={ getClassNames } { ...rest }>
+            { canUseBitmap ? <BitmapText font={ bitmapFont || 'regular' } text={ children as string | number } scale={ bitmapScale } /> : children }
+        </Base>
+    );
 }

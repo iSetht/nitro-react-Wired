@@ -125,7 +125,7 @@ export const ChatInputView: FC<{}> = props =>
 
         if(document.activeElement !== inputRef.current) setInputFocus();
 
-        const value = (event.target as HTMLInputElement).value;
+        const value = inputRef.current.value;
 
         switch(event.key)
         {

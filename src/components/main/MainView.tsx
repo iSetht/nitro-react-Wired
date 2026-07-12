@@ -1,8 +1,8 @@
-import { HabboWebTools, ILinkEventTracker, RoomSessionEvent } from '@nitrots/nitro-renderer';
+import { DesktopViewEvent, HabboWebTools, ILinkEventTracker, RoomSessionEvent } from '@nitrots/nitro-renderer';
 import { FC, useEffect, useState } from 'react';
-import { AddEventLinkTracker, GetCommunication, RemoveLinkEventTracker } from '../../api';
+import { AddEventLinkTracker, GetCommunication, GetRoomSession, GetRoomSessionManager, RemoveLinkEventTracker } from '../../api';
 import { Base, TransitionAnimation, TransitionAnimationTypes } from '../../common';
-import { useRoomSessionManagerEvent } from '../../hooks';
+import { useMessageEvent, useRoomSessionManagerEvent } from '../../hooks';
 import { AchievementsView } from '../achievements/AchievementsView';
 import { AvatarEditorView } from '../avatar-editor/AvatarEditorView';
 import { CameraWidgetView } from '../camera/CameraWidgetView';
@@ -23,7 +23,12 @@ import { NavigatorView } from '../navigator/NavigatorView';
 import { NitropediaView } from '../nitropedia/NitropediaView';
 import { RightSideView } from '../right-side/RightSideView';
 import { RoomView } from '../room/RoomView';
+import { AreaHideView } from '../room-tools/AreaHideView';
 import { ToolbarView } from '../toolbar/ToolbarView';
+import { WiredCreatorToolsView } from '../wired-creator-tools/WiredCreatorToolsView';
+import { ChestView } from '../wired-chests/ChestView';
+import { ContractView } from '../wired-chests/ContractView';
+import { RewardPopupView } from '../wired-chests/RewardPopupView';
 import { UserProfileView } from '../user-profile/UserProfileView';
 import { UserSettingsView } from '../user-settings/UserSettingsView';
 import { WiredView } from '../wired/WiredView';
@@ -35,6 +40,14 @@ export const MainView: FC<{}> = props =>
 
     useRoomSessionManagerEvent<RoomSessionEvent>(RoomSessionEvent.CREATED, event => setLandingViewVisible(false));
     useRoomSessionManagerEvent<RoomSessionEvent>(RoomSessionEvent.ENDED, event => setLandingViewVisible(event.openLandingView));
+    useMessageEvent<DesktopViewEvent>(DesktopViewEvent, () =>
+    {
+        const session = GetRoomSession();
+
+        if(session) GetRoomSessionManager().removeSession(session.roomId);
+
+        setLandingViewVisible(true);
+    });
 
     useEffect(() =>
     {
@@ -87,8 +100,13 @@ export const MainView: FC<{}> = props =>
             <ToolbarView isInRoom={ !landingViewVisible } />
             <ModToolsView />
             <RoomView />
+            <AreaHideView />
             <ChatHistoryView />
             <WiredView />
+            <ChestView />
+            <ContractView />
+            <RewardPopupView />
+            <WiredCreatorToolsView />
             <AvatarEditorView />
             <AchievementsView />
             <NavigatorView />

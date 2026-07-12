@@ -6,5 +6,7 @@ export * from './GetRoomObjectBounds';
 export * from './GetRoomObjectScreenLocation';
 export * from './InitializeRoomInstanceRenderingCanvas';
 export * from './IsFurnitureSelectionDisabled';
+export * from './WiredClickSettings';
+export * from './WiredCreatorToolsSettings';
 export * from './ProcessRoomObjectOperation';
 export * from './SetActiveRoomId';

@@ -44,6 +44,18 @@ export const LayoutFurniImageView: FC<LayoutFurniImageViewProps> = props =>
     useEffect(() =>
     {
         let imageResult: ImageResult = null;
+        let disposed = false;
+
+        const updateImage = (image: HTMLImageElement) =>
+        {
+            if(!image) return;
+
+            if(image.complete) setImageElement(image);
+            else image.onload = () =>
+            {
+                if(!disposed) setImageElement(image);
+            };
+        };
 
         const listener: IGetImageListener = {
             imageReady: (id, texture, image) =>
@@ -53,7 +65,7 @@ export const LayoutFurniImageView: FC<LayoutFurniImageViewProps> = props =>
                     image = TextureUtils.generateImage(texture);
                 }
 
-                image.onload = () => setImageElement(image);
+                updateImage(image);
             },
             imageFailed: null
         };
@@ -72,8 +84,13 @@ export const LayoutFurniImageView: FC<LayoutFurniImageViewProps> = props =>
         {
             const image = imageResult.getImage();
 
-            image.onload = () => setImageElement(image);
+            updateImage(image);
         }
+
+        return () =>
+        {
+            disposed = true;
+        };
     }, [ productType, productClassId, direction, extraData ]);
 
     if(!imageElement) return null;

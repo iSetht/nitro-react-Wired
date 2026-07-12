@@ -1,7 +1,7 @@
 import { AvatarAction, AvatarExpressionEnum, RoomControllerLevel, RoomObjectCategory, RoomUnitDropHandItemComposer } from '@nitrots/nitro-renderer';
-import { Dispatch, FC, SetStateAction, useState } from 'react';
+import { Dispatch, FC, SetStateAction, useEffect, useState } from 'react';
 import { FaChevronLeft, FaChevronRight } from 'react-icons/fa';
-import { AvatarInfoUser, CreateLinkEvent, DispatchUiEvent, GetCanStandUp, GetCanUseExpression, GetOwnPosture, GetUserProfile, HasHabboClub, HasHabboVip, IsRidingHorse, LocalizeText, PostureTypeEnum, SendMessageComposer } from '../../../../../api';
+import { AvatarInfoUser, CreateLinkEvent, DispatchUiEvent, GetCanStandUp, GetCanUseExpression, GetOwnPosture, GetUserProfile, GetWiredCreatorToolsSettings, HasHabboClub, HasHabboVip, IsRidingHorse, LocalizeText, PostureTypeEnum, SendMessageComposer, WIRED_CREATOR_TOOLS_SETTINGS_EVENT } from '../../../../../api';
 import { Flex, LayoutCurrencyIcon } from '../../../../../common';
 import { HelpNameChangeEvent } from '../../../../../events';
 import { useRoom } from '../../../../../hooks';
@@ -27,7 +27,17 @@ export const AvatarInfoWidgetOwnAvatarView: FC<AvatarInfoWidgetOwnAvatarViewProp
 {
     const { avatarInfo = null, isDancing = false, setIsDecorating = null, onClose = null } = props;
     const [ mode, setMode ] = useState((isDancing && HasHabboClub()) ? MODE_CLUB_DANCES : MODE_NORMAL);
+    const [ showInspectButton, setShowInspectButton ] = useState(() => GetWiredCreatorToolsSettings().showInspectButton);
     const { roomSession = null } = useRoom();
+
+    useEffect(() =>
+    {
+        const updateSettings = () => setShowInspectButton(GetWiredCreatorToolsSettings().showInspectButton);
+
+        window.addEventListener(WIRED_CREATOR_TOOLS_SETTINGS_EVENT, updateSettings);
+
+        return () => window.removeEventListener(WIRED_CREATOR_TOOLS_SETTINGS_EVENT, updateSettings);
+    }, []);
 
     const processAction = (name: string) =>
     {
@@ -103,6 +113,9 @@ export const AvatarInfoWidgetOwnAvatarView: FC<AvatarInfoWidgetOwnAvatarViewProp
                     case 'drop_carry_item':
                         SendMessageComposer(new RoomUnitDropHandItemComposer());
                         break;
+                    case 'inspect':
+                        CreateLinkEvent(`wired-tools/inspect/user/${ avatarInfo.roomIndex }`);
+                        break;
                 }
             }
         }
@@ -157,6 +170,10 @@ export const AvatarInfoWidgetOwnAvatarView: FC<AvatarInfoWidgetOwnAvatarViewProp
                     { (avatarInfo.carryItem > 0) &&
                         <ContextMenuListItemView onClick={ event => processAction('drop_carry_item') }>
                             { LocalizeText('avatar.widget.drop_hand_item') }
+                        </ContextMenuListItemView> }
+                    { showInspectButton &&
+                        <ContextMenuListItemView onClick={ event => processAction('inspect') }>
+                            Inspect
                         </ContextMenuListItemView> }
                 </> }
             { (mode === MODE_CLUB_DANCES) &&

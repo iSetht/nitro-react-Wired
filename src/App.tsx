@@ -5,8 +5,18 @@ import { Base, TransitionAnimation, TransitionAnimationTypes } from './common';
 import { LoadingView } from './components/loading/LoadingView';
 import { MainView } from './components/main/MainView';
 import { useConfigurationEvent, useLocalizationEvent, useMainEvent, useRoomEngineEvent } from './hooks';
+import { preloadNitroTruffle } from './truffle';
 
 NitroVersion.UI_VERSION = GetUIVersion();
+
+const trufflePreload = preloadNitroTruffle()
+    .then(() => true)
+    .catch(error =>
+    {
+        console.error('Failed to preload Truffle', error);
+
+        return false;
+    });
 
 export const App: FC<{}> = props =>
 {
@@ -73,6 +83,13 @@ export const App: FC<{}> = props =>
                 return;
             case RoomEngineEvent.ENGINE_INITIALIZED:
                 setPercent(prevValue => (prevValue + 20));
+
+                if(!(await trufflePreload))
+                {
+                    setIsError(true);
+                    setMessage('Truffle Failed');
+                    return;
+                }
 
                 setTimeout(() => setIsReady(true), 300);
                 return;

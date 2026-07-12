@@ -1,10 +1,14 @@
-import { RoomEngineObjectEvent, RoomObjectVariable } from '@nitrots/nitro-renderer';
+import { RoomEngineObjectEvent, RoomObjectCategory, RoomObjectVariable } from '@nitrots/nitro-renderer';
 import { GetSessionDataManager } from '../..';
 import { GetRoomEngine } from './GetRoomEngine';
+import { GetWiredClickSettings } from './WiredClickSettings';
 
 export function IsFurnitureSelectionDisabled(event: RoomEngineObjectEvent): boolean
 {
     let result = false;
+    const clickSettings = GetWiredClickSettings();
+
+    if(clickSettings.active && ((event.category === RoomObjectCategory.FLOOR) || (event.category === RoomObjectCategory.WALL)) && (clickSettings.furniMode === 1)) return true;
 
     const roomObject = GetRoomEngine().getRoomObject(event.roomId, event.objectId, event.category);
 
