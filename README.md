@@ -1,12 +1,12 @@
-# Chunk Nitro
+This nitro-react is to be used in pair with the [Arcturus Wired emulator](https://github.com/iSetht/Arcturus-Community-Wired)
 
-This nitro-react is to be used in pair with the Arcturus Wired emulator
-
-This will contain all the frontend things needed for wired and the few custom features I added. Again, read the emulator README for more details but this is NOT PROD READY. I would treat this as a sandbox to use or get Claude etc to help guide you through specific wired / features you are looking for.
+This will contain all the frontend things needed for wired and the few custom features I added. Again, read the emulator README for more details but this is NOT PROD READY. I would treat this as a sandbox to use or get Claude etc to help guide you through specific wired / features you are looking for. Yarn was patched with the new @nitrots. 
 
 I added wiredPreview and wired under \src\assets it contains some images used for wired, you may have to set the path properly to here as I was using it in my nitro-assets during testing.
 
 Also, thanks to Chunk for providing a clean nitro as a place to start.
+
+# Chunk Nitro - Wired
 
 ## Prerequisites
 

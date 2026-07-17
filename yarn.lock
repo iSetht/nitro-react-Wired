@@ -589,7 +589,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@nitrots/nitro-renderer@npm:^1.6.6":
+"@nitrots/nitro-renderer@npm:1.6.6":
   version: 1.6.6
   resolution: "@nitrots/nitro-renderer@npm:1.6.6"
   dependencies:
@@ -629,6 +629,49 @@ __metadata:
     howler: "npm:^2.2.3"
     pako: "npm:^2.0.4"
   checksum: 10c0/65c1f5bd1bac3dc2c86b2b2ffcaef524e96cb26c4e43f953c5d8848582eff2f92517b8b94b109df1d4046919cc4b40a97e144dbee9870558a7e5178c634733e6
+  languageName: node
+  linkType: hard
+
+"@nitrots/nitro-renderer@patch:@nitrots/nitro-renderer@npm%3A1.6.6#~/.yarn/patches/@nitrots-nitro-renderer-npm-1.6.6-c15ae4be91.patch":
+  version: 1.6.6
+  resolution: "@nitrots/nitro-renderer@patch:@nitrots/nitro-renderer@npm%3A1.6.6#~/.yarn/patches/@nitrots-nitro-renderer-npm-1.6.6-c15ae4be91.patch::version=1.6.6&hash=1b9db1"
+  dependencies:
+    "@pixi/app": "npm:~6.5.0"
+    "@pixi/basis": "npm:~6.5.0"
+    "@pixi/canvas-display": "npm:~6.5.0"
+    "@pixi/canvas-extract": "npm:~6.5.0"
+    "@pixi/canvas-renderer": "npm:~6.5.0"
+    "@pixi/constants": "npm:~6.5.0"
+    "@pixi/core": "npm:~6.5.0"
+    "@pixi/display": "npm:~6.5.0"
+    "@pixi/events": "npm:~6.5.0"
+    "@pixi/extensions": "npm:~6.5.0"
+    "@pixi/extract": "npm:~6.5.0"
+    "@pixi/filter-alpha": "npm:~6.5.0"
+    "@pixi/filter-color-matrix": "npm:~6.5.0"
+    "@pixi/graphics": "npm:~6.5.0"
+    "@pixi/graphics-extras": "npm:~6.5.0"
+    "@pixi/interaction": "npm:~6.5.0"
+    "@pixi/loaders": "npm:~6.5.0"
+    "@pixi/math": "npm:~6.5.0"
+    "@pixi/math-extras": "npm:~6.5.0"
+    "@pixi/mixin-cache-as-bitmap": "npm:~6.5.0"
+    "@pixi/mixin-get-child-by-name": "npm:~6.5.0"
+    "@pixi/mixin-get-global-position": "npm:~6.5.0"
+    "@pixi/polyfill": "npm:~6.5.0"
+    "@pixi/runner": "npm:~6.5.0"
+    "@pixi/settings": "npm:~6.5.0"
+    "@pixi/sprite": "npm:~6.5.0"
+    "@pixi/sprite-tiling": "npm:~6.5.0"
+    "@pixi/spritesheet": "npm:~6.5.0"
+    "@pixi/text": "npm:~6.5.0"
+    "@pixi/ticker": "npm:~6.5.0"
+    "@pixi/tilemap": "npm:^3.2.2"
+    "@pixi/utils": "npm:~6.5.0"
+    gifuct-js: "npm:^2.1.2"
+    howler: "npm:^2.2.3"
+    pako: "npm:^2.0.4"
+  checksum: 10c0/2e49b10b170401dd8728a8351f5414f8b09879026e44c2a2e82f80cad6416c625dfe5eda40f3a7ec374ecbe1d7711fc1e69dd3d17767d17b602ad914847e9ade
   languageName: node
   linkType: hard
 
@@ -3143,7 +3186,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "nitro-react@workspace:."
   dependencies:
-    "@nitrots/nitro-renderer": "npm:^1.6.6"
+    "@nitrots/nitro-renderer": "patch:@nitrots/nitro-renderer@npm%3A1.6.6#~/.yarn/patches/@nitrots-nitro-renderer-npm-1.6.6-c15ae4be91.patch"
     "@tanstack/react-virtual": "npm:^3.0.0-alpha.0"
     "@types/node": "npm:^18.6.1"
     "@types/react": "npm:^18.0.15"
