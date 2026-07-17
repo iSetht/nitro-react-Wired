@@ -1,0 +1,346 @@
+.nitro-notification-center-container {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 300px;
+    height: calc(100% - #{$toolbar-height});
+    z-index: $notification-center-zindex;
+    pointer-events: none;
+
+    .nitro-notification-center {
+        background-color: $dark;
+        height: 100%;
+        pointer-events: all;
+    }
+}
+
+.nitro-alert {
+    min-height: 150px;
+    max-height: 350px;
+
+    .notification-frank {
+        background-image: url('@/assets/images/notifications/frank.gif');
+        width:47px;
+        height: 85px;
+    }
+
+    .notification-text {
+        min-width: 250px;
+    }
+
+    &.nitro-alert-default,
+    &.nitro-alert-motd {
+        width: 350px;
+        .notification-text {
+            min-width: auto;
+        }
+    }
+
+    &.nitro-alert-moderation,
+    &.nitro-alert-alert {
+        width: 300px;
+        .notification-text {
+            min-width: 225px;
+        }
+    }
+}
+
+.nitro-group-room_info {
+    pointer-events: all;
+    border-image-source: url(@/assets/images/notifications/notifications_bg.png);
+    border-image-slice: 9 9 9 9 fill;
+    border-image-width: 9px 9px 10px 9px;
+    font-size: .721875rem;
+    padding: 0 3px 6px 0
+}
+
+.nitro-group-room_info .group-room-header {
+    background: #6a7069;
+    border-radius: 10px 10px 0 0;
+    position: relative;
+    padding: 4px 8px
+}
+
+.icon.icon-group_icon_room {
+    background: url(@/assets/images/notifications/group_icon_header.png);
+    width: 21px;
+    height: 16px
+}
+
+.icon.icon-notification_arrow_left {
+    background: url(@/assets/images/notifications/notification_arrow_left.png);
+    width: 18px;
+    height: 19px
+}
+
+.icon.icon-notification_arrow_down {
+    background: url(@/assets/images/notifications/notification_arrow_down.png);
+    width: 18px;
+    height: 19px
+}
+
+.nitro-group-room_info .group-room-header .header-text {
+    margin-right: auto;
+    margin-left: auto
+}
+
+.nitro-notification-bubble {
+    pointer-events: all;
+    padding: 6px 5px;
+    background-color: rgba($dark,.95);
+    box-shadow: inset 0px 5px lighten(rgba($dark,.6),2.5), inset 0 -4px darken(rgba($dark,.6),4);
+    font-size: $font-size-sm;
+
+    .bubble-image-container {
+        width: 50px;
+        height: 50px;
+    }
+}
+
+.nitro-notification-bubble.wired-chest-notification {
+    --wired-chest-bg-width: 240px;
+    --wired-chest-bg-height: 160px;
+    --wired-chest-bg-left: 0px;
+    --wired-chest-bg-bottom: -48px;
+    position: relative;
+    display: block;
+    width: min(240px, calc(100vw - 18px));
+    overflow: hidden;
+    padding: 0;
+    border: 0;
+    border-radius: 6px;
+    background: transparent;
+    color: #fff;
+    font-size: 12px;
+    line-height: 14px;
+    text-shadow: 0 1px #000;
+    box-shadow: 0 1px 0 rgba(0, 0, 0, .35);
+    animation: wired-click-settings-enter 360ms ease both;
+
+    &::after {
+        content: '';
+        position: absolute;
+        left: var(--wired-chest-bg-left);
+        bottom: var(--wired-chest-bg-bottom);
+        z-index: 1;
+        width: var(--wired-chest-bg-width);
+        height: var(--wired-chest-bg-height);
+        background-image: url('@/assets/images/wired/wired_bg_right.png');
+        background-repeat: no-repeat;
+        transform: scaleY(-1) scaleX(-1);
+        opacity: .14;
+        pointer-events: none;
+    }
+
+    .wired-chest-notification-body {
+        position: relative;
+        z-index: 2;
+        min-height: 82px;
+        padding: 9px 9px 8px 24px;
+        border-radius: 6px;
+        background: #345376;
+    }
+
+    .wired-chest-notification-main {
+        display: flex;
+        min-width: 0;
+        align-items: center;
+        gap: 9px;
+    }
+
+    .wired-chest-notification-icon {
+        flex: 0 0 auto;
+        width: 50px;
+        height: 50px;
+        object-fit: contain;
+        image-rendering: pixelated;
+    }
+
+    .wired-chest-notification-copy {
+        min-width: 0;
+        flex: 1 1 auto;
+        white-space: pre-line;
+    }
+
+    .wired-chest-notification-title,
+    .wired-chest-notification-user {
+        font-weight: 700;
+    }
+
+    .wired-chest-notification-line {
+        display: inline;
+    }
+
+    .wired-chest-notification-user {
+        display: inline;
+        padding: 0;
+        border: 0;
+        background: transparent;
+        color: #8fe8ff;
+        text-align: left;
+        text-decoration: underline;
+        text-shadow: inherit;
+    }
+
+    .wired-chest-notification-subline {
+        margin-top: 2px;
+        color: rgba(255, 255, 255, .84);
+    }
+
+    .wired-chest-notification-rewards {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 4px;
+        margin-top: 8px;
+        padding-top: 7px;
+        border-top: 1px solid rgba(255, 255, 255, .18);
+    }
+
+    .wired-chest-notification-reward {
+        display: flex;
+        align-items: center;
+        gap: 7px;
+        min-height: 24px;
+        padding: 3px 7px;
+        border-radius: 4px;
+        background: rgba(20, 32, 46, .58);
+        font-weight: 700;
+    }
+
+    .wired-chest-notification-reward-icon {
+        flex: 0 0 auto;
+        image-rendering: pixelated;
+    }
+
+    .wired-chest-notification-close {
+        position: absolute;
+        top: 6px;
+        left: 6px;
+        z-index: 3;
+        min-width: 24px;
+        height: 24px;
+        padding: 0 7px;
+        border: 1px solid #1e3553;
+        border-radius: 6px;
+        background: #6f91bd;
+        color: #fff;
+        font-weight: 700;
+        line-height: 20px;
+        text-align: center;
+        text-shadow: 0 1px #36506f;
+        box-shadow: inset 0 1px rgba(255, 255, 255, .25);
+    }
+}
+
+.nitro-wired-click-settings-stack {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    pointer-events: all;
+
+    &.is-exiting {
+        .nitro-wired-click-settings {
+            opacity: 0;
+            transform: translateY(-5px);
+        }
+    }
+}
+
+.nitro-wired-click-settings {
+    // The source image is 240x160. These offsets place its transformed crossing at the lower-left corner.
+    --wired-click-bg-width: 240px;
+    --wired-click-bg-height: 160px;
+    --wired-click-bg-left: 0px;
+    --wired-click-bg-bottom: -50px;
+    position: relative;
+    width: 240px;
+    overflow: hidden;
+    border-radius: 6px;
+    color: #fff;
+    font-size: 12px;
+    line-height: 14px;
+    pointer-events: all;
+    text-shadow: 0 1px #000;
+    box-shadow: 0 1px 0 rgba(0, 0, 0, .35);
+    opacity: 1;
+    transform: translateY(0);
+    transition: opacity 360ms ease, transform 360ms ease;
+    animation: wired-click-settings-enter 360ms ease both;
+
+    &::before {
+        content: 'Wired';
+        position: relative;
+        z-index: 2;
+        display: block;
+        width: 100%;
+        height: 22px;
+        background: #1d2f43;
+        font-weight: 700;
+        line-height: 22px;
+        text-align: center;
+    }
+
+    &::after {
+        content: '';
+        position: absolute;
+        left: var(--wired-click-bg-left);
+        bottom: var(--wired-click-bg-bottom);
+        z-index: 1;
+        width: var(--wired-click-bg-width);
+        height: var(--wired-click-bg-height);
+        background-image: url('@/assets/images/wired/wired_bg_right.png');
+        background-repeat: no-repeat;
+        transform: scaleY(-1) scaleX(-1);
+        opacity: .15;
+        pointer-events: none;
+    }
+
+    .nitro-wired-click-settings-body {
+        position: relative;
+        display: flex;
+        min-height: 78px;
+        flex-direction: column;
+        align-items: stretch;
+        justify-content: center;
+        gap: 8px;
+        padding: 9px 9px 8px;
+        border-radius: 0 0 6px 6px;
+        background: #345376;
+
+    }
+
+    .nitro-wired-click-settings-message {
+        position: relative;
+        z-index: 2;
+        text-align: center;
+    }
+
+    .nitro-wired-click-settings-actions {
+        position: relative;
+        z-index: 2;
+        display: flex;
+        justify-content: flex-end;
+        gap: 6px;
+    }
+
+    button {
+        min-width: 54px;
+        height: 24px;
+        padding: 0 10px;
+        border: 1px solid #1e3553;
+        border-radius: 6px;
+        background: #6f91bd;
+        color: #fff;
+        font-weight: 700;
+        line-height: 20px;
+        text-shadow: 0 1px #36506f;
+        box-shadow: inset 0 1px rgba(255, 255, 255, .25);
+    }
+}
+
+@keyframes wired-click-settings-enter {
+    from {
+        opacity: 0;
+        transform: translateY(-5px);
+    }
+}

@@ -1,0 +1,110 @@
+.nitro-wired.nitro-area-hide {
+    .nw-header-title {
+        left: 10px;
+        right: 28px;
+
+        .bitmap-text {
+            transform: translateY(var(--nw-row1-title-y)) scaleX(0.82);
+            transform-origin: center;
+            white-space: nowrap;
+        }
+    }
+
+    .nw-header::after {
+        left: 0;
+        right: 0;
+    }
+
+    .nw-body {
+        padding-top: 8px;
+    }
+
+    .nw-area-buttons {
+        justify-content: flex-end;
+    }
+
+    .nw-area-buttons .nw-text-btn {
+        flex: initial;
+        width: 103px;
+    }
+
+    &.is-area-locked {
+        .nw-special > .nw-param {
+            opacity: 0.45;
+            pointer-events: none;
+        }
+    }
+}
+
+.nitro-wired.nitro-background-color {
+    .nw-header-title {
+        left: 10px;
+        right: 28px;
+
+        .bitmap-text {
+            transform: translateY(var(--nw-row1-title-y)) scaleX(0.88);
+            transform-origin: center;
+            white-space: nowrap;
+        }
+    }
+
+    .nw-header::after {
+        left: 0;
+        right: 0;
+    }
+
+    .nw-body {
+        padding-top: 8px;
+    }
+
+    .nw-bgcolor-picker {
+        position: relative;
+        display: grid;
+        grid-template-columns: 42px 1fr;
+        align-items: center;
+        gap: 7px;
+        min-height: 42px;
+        padding: 4px 5px;
+        background-color: #d1d1d1;
+        border: 1px solid #9b9b9b;
+        border-radius: 3px;
+        box-shadow: inset -1px -1px 0 #f4f4f4, inset -1px -1px 0 #b6b6b6;
+        cursor: pointer;
+    }
+
+    .nw-bgcolor-swatch {
+        display: block;
+        width: 34px;
+        height: 28px;
+        border: 1px solid #000000;
+    }
+
+    .nw-bgcolor-value {
+        color: #252525;
+
+        .bitmap-text {
+            filter: drop-shadow(0 1px 0 #ffffff);
+        }
+    }
+
+    .nw-bgcolor-picker input {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        opacity: 0;
+        cursor: pointer;
+    }
+
+    .nw-bgcolor-buttons {
+        display: flex;
+        justify-content: flex-end;
+        gap: 6px;
+        width: 100%;
+    }
+
+    .nw-bgcolor-buttons .nw-text-btn {
+        flex: initial;
+        min-width: 78px;
+    }
+}

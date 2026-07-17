@@ -1,0 +1,257 @@
+.nitro-chooser-widget {
+    width: $nitro-chooser-width;
+    height: $nitro-chooser-height;
+}
+
+.nitro-furni-table-widget {
+    width: $nitro-furni-table-width;
+    height: $nitro-furni-table-height;
+}
+
+.nitro-chooser-widget {
+    width: 400px;
+    min-width: 400px;
+    max-width: 400px;
+    height: 380px;
+    min-height: 380px;
+    resize: vertical;
+    display: flex;
+    flex-direction:column
+}
+
+.nitro-chooser-widget .content-area {
+    display: flex;
+    flex-direction: column;
+    flex:1
+}
+
+.nitro-chooser-widget .furni-search-container {
+    display: flex;
+    gap: 8px;
+    flex-shrink:0
+}
+
+.nitro-chooser-widget .furni-search-container .search-input-container {
+    flex:1
+}
+
+.nitro-chooser-widget .furni-search-container .owner-select-container {
+    width:120px
+}
+
+.nitro-chooser-widget .furni-search-container .form-control {
+    width: 100%;
+    padding: 4px 8px;
+    font-size: 12px;
+    border: 1px solid #ced4da;
+    border-radius: 4px;
+    appearance:auto !important
+}
+
+.nitro-chooser-widget .table-container {
+    flex: 1;
+    min-height: 200px;
+    overflow-y: auto;
+    background-color: #fff;
+    border-radius: 4px;
+    border: 1px solid #dee2e6;
+    display: flex;
+    flex-direction:column
+}
+
+.nitro-chooser-widget .furni-table {
+    width: 100%;
+    table-layout: fixed;
+    border-collapse:collapse
+}
+
+.nitro-chooser-widget .furni-table th, .nitro-chooser-widget .furni-table td {
+    padding: 4px 8px;
+    font-size: 12px;
+    text-align: left;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow:ellipsis
+}
+
+.nitro-chooser-widget .furni-table thead th {
+    position: sticky;
+    top: 0;
+    background-color: #fff;
+    z-index: 1;
+    border-bottom: 1px solid #ced4da;
+    height:24px
+}
+
+.nitro-chooser-widget .furni-table tr {
+    cursor:pointer
+}
+
+.nitro-chooser-widget .furni-table tr:hover {
+    background-color:#ececec
+}
+
+.nitro-chooser-widget .furni-table tr.selected {
+    background-color:#b8e2fc !important
+}
+
+.nitro-chooser-widget .furni-table .name-column {
+    width: 180px;
+    max-width:180px
+}
+
+.nitro-chooser-widget .furni-table .owner-column {
+    width: 90px;
+    max-width:90px
+}
+
+.nitro-chooser-widget .furni-table tbody tr.row-even {
+    background-color:#f9f9f9
+}
+
+.nitro-chooser-widget .furni-table tbody tr.row-odd {
+    background-color:#eaeaea
+}
+
+.nitro-chooser-widget .furni-footer {
+    font-size: 12px;
+    display: flex;
+    align-items: center;
+    flex-shrink:0
+}
+
+.nitro-chooser-widget .furni-footer div {
+    color:#84857d !important
+}
+
+/* Nitro Furni Chooser Window */
+
+.nitro-furni-table-widget .furni-search-container {
+    display: flex;
+    gap: 8px;
+    flex-shrink:0
+}
+
+.nitro-furni-table-widget .furni-search-container .search-input-container {
+    flex:1
+}
+
+.nitro-furni-table-widget .furni-search-container .owner-select-container {
+    width:120px
+}
+
+.nitro-furni-table-widget .furni-search-container .form-control {
+    width: 100%;
+    padding: 4px 8px;
+    font-size: 12px;
+    border: 1px solid #ced4da;
+    border-radius: 4px;
+    appearance:auto !important
+}
+
+.nitro-furni-table-widget .table-container {
+    flex: 1;
+    min-height: 200px;
+    overflow-y: auto;
+    background-color: #fff;
+    border-radius: 4px;
+    border: 1px solid #dee2e6;
+    display: flex;
+    flex-direction:column
+}
+
+.nitro-furni-table-widget .furni-table {
+    width: 100%;
+    table-layout: fixed;
+    border-collapse:collapse
+}
+
+.nitro-furni-table-widget .furni-table th, .nitro-furni-table-widget .furni-table td {
+    padding: 4px 8px;
+    font-size: 12px;
+    text-align: left;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow:ellipsis
+}
+
+.nitro-furni-table-widget .furni-table thead th {
+    position: sticky;
+    top: 0;
+    background-color: #fff;
+    z-index: 1;
+    border-bottom: 1px solid #ced4da;
+    height:24px
+}
+
+.nitro-furni-table-widget .furni-table tr {
+    cursor:pointer
+}
+
+.nitro-furni-table-widget .furni-table tr:hover {
+    background-color:#ececec
+}
+
+.nitro-furni-table-widget .furni-table tr.selected {
+    background-color:#b8e2fc !important
+}
+
+.nitro-furni-table-widget .furni-table .name-column {
+    width: 160px;
+    max-width:160px
+}
+
+.nitro-furni-table-widget .furni-table .owner-column, .nitro-furni-table-widget .furni-table .id-column {
+    width: 110px;
+    max-width:110px
+}
+
+.nitro-furni-table-widget .furni-table tbody tr.row-even {
+    background-color:#f9f9f9
+}
+
+.nitro-furni-table-widget .furni-table tbody tr.row-odd {
+    background-color:#eaeaea
+}
+
+.nitro-furni-table-widget .furni-table tbody tr.child-row.child-even {
+    background-color:#f9f9f9cc
+}
+
+.nitro-furni-table-widget .furni-table tbody tr.child-row.child-odd {
+    background-color:#eaeaeacc
+}
+
+.nitro-furni-table-widget .furni-table tbody tr.child-row:hover {
+    background-color:#e0e0e0
+}
+
+.nitro-furni-table-widget .furni-table .group-row {
+    font-weight:500
+}
+
+.nitro-furni-table-widget .furni-table .group-row .toggle-icon {
+    margin-left: 6px;
+    font-size: 10px;
+    color:#6c757d
+}
+
+.nitro-furni-table-widget .furni-table .child-row .child-name {
+    padding-left:16px
+}
+
+.nitro-furni-table-widget .furni-table .child-row .child-name:before {
+    content: "└ ";
+    color:#adb5bd
+}
+
+.nitro-furni-table-widget .furni-footer {
+    font-size: 12px;
+    display: flex;
+    align-items: center;
+    flex-shrink:0
+}
+
+.nitro-furni-table-widget .furni-footer div {
+    color:#84857d !important
+}

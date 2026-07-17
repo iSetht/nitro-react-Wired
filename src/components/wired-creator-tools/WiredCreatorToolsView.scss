@@ -1,0 +1,2114 @@
+.nitro-wired-creator-tools {
+    width: 1040px;
+    min-width: 1040px;
+    max-width: 1040px;
+    height: 625px;
+    min-height: 625px;
+    max-height: 625px;
+    resize: none !important;
+
+    &.theme-wired-tools {
+        background: #d8e4ea;
+        border: 1px solid #1d1d1d;
+        border-bottom-width: 2px;
+        border-radius: 8px !important;
+        box-shadow: inset 0 0 0 2px #ffffff, 4px 4px 0 rgba(0, 0, 0, .28) !important;
+        color: #1d1a16;
+
+        .content-area {
+            background: #d8e4ea;
+        }
+    }
+}
+
+.wired-tools-hidden {
+    opacity: 0 !important;
+    visibility: hidden !important;
+    pointer-events: none !important;
+}
+
+.wired-tools-highlight-overlay {
+    position: absolute;
+    inset: 0;
+    z-index: 80;
+    pointer-events: none;
+}
+
+.wired-tools-highlight-location {
+    pointer-events: none;
+}
+
+.wired-tools-highlight-bubble {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 44px;
+    height: 22px;
+    padding: 1px 8px 3px;
+    border: 1px solid #0d1f29;
+    border-radius: 5px;
+    background: #78aeca;
+    box-shadow: inset 1px 1px #b9d8e6, inset -1px -1px #4b829d, 1px 1px rgba(0, 0, 0, .22);
+    color: #ffffff;
+    image-rendering: pixelated;
+
+    .nw-control-text {
+        color: #ffffff;
+        text-shadow: 1px 1px #2b617a;
+    }
+
+    &.is-live-updated.wired-tools-pulse-a {
+        animation: wired-tools-highlight-pulse-a 420ms ease-out;
+    }
+
+    &.is-live-updated.wired-tools-pulse-b {
+        animation: wired-tools-highlight-pulse-b 420ms ease-out;
+    }
+}
+
+.wired-tools-highlight-pointer {
+    position: absolute;
+    left: 50%;
+    bottom: -8px;
+    width: 11px;
+    height: 8px;
+    transform: translateX(-50%);
+
+    &::before,
+    &::after {
+        content: '';
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 0;
+        height: 0;
+        border-left: 6px solid transparent;
+        border-right: 6px solid transparent;
+    }
+
+    &::before {
+        border-top: 7px solid #0d1f29;
+    }
+
+    &::after {
+        top: -1px;
+        left: 1px;
+        border-left-width: 5px;
+        border-right-width: 5px;
+        border-top: 6px solid #78aeca;
+    }
+}
+
+.nitro-wired-logs,
+.nitro-wired-chest-logs,
+.nitro-wired-chest-log-detail {
+    width: 690px;
+    height: 425px;
+    min-height: 425px;
+    max-height: 425px;
+
+    &.theme-wired-tools {
+        background: #d8e4ea;
+        border: 1px solid #1d1d1d;
+        border-bottom-width: 2px;
+        border-radius: 8px !important;
+        box-shadow: inset 0 0 0 2px #ffffff, 4px 4px 0 rgba(0, 0, 0, .28) !important;
+
+        .content-area {
+            background: #d8e4ea;
+        }
+    }
+}
+
+.nitro-wired-chest-logs {
+    width: 760px;
+    height: 460px;
+    min-height: 460px;
+    max-height: 460px;
+}
+
+.nitro-wired-chest-log-detail {
+    width: 540px;
+    height: 420px;
+    min-height: 420px;
+    max-height: 420px;
+}
+
+.wired-tools-tabbar {
+    position: relative;
+    display: flex;
+    align-items: flex-end;
+    gap: 0;
+    min-height: 84px;
+    padding: 8px 38px 0 11px;
+    background: linear-gradient(#d7e6ed 0%, #c3d8e2 58%, #9fb9c7 100%);
+    cursor: move;
+
+    &::after {
+        content: '';
+        position: absolute;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        z-index: 1;
+        height: 1px;
+        background: #4c92b4;
+        box-shadow: 0 1px #ffffff;
+        pointer-events: none;
+    }
+}
+
+.wired-tools-tab {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-end;
+    flex: 0 0 136px;
+    height: 68px;
+    margin-right: -1px;
+    padding: 5px 5px 6px;
+    border: 1px solid rgba(52, 83, 99, .84);
+    border-bottom-color: #4c92b4;
+    border-radius: 6px 6px 0 0;
+    background: linear-gradient(#ecf4f7 0%, #cdd9df 100%);
+    box-shadow: inset 1px 1px #ffffff, inset -1px 0 rgba(83, 112, 126, .55), 2px 0 3px rgba(38, 60, 70, .16);
+    color: #211b13;
+    cursor: pointer;
+    transition: background-color 80ms linear, box-shadow 80ms linear;
+
+    &:hover {
+        background: #dbe7ec;
+    }
+
+    &.is-active {
+        z-index: 3;
+        height: 76px;
+        transform: translateY(-4px);
+        background: #d8e4ea;
+        border-color: #4c92b4;
+        border-bottom-color: #d8e4ea;
+        border-radius: 7px 7px 0 0;
+        box-shadow: inset 1px 1px #ffffff, inset -1px 0 #9eb8c5, 3px 0 4px rgba(36, 70, 88, .18), -3px 0 4px rgba(36, 70, 88, .12);
+
+        &::after {
+            content: '';
+            position: absolute;
+            right: 0;
+            bottom: -2px;
+            left: 0;
+            z-index: 4;
+            height: 4px;
+            background: #d8e4ea;
+            pointer-events: none;
+        }
+
+        .wired-tools-tab-title-shell {
+            opacity: 1;
+            height: 17px;
+            margin-top: 2px;
+            background: transparent;
+            box-shadow: none;
+        }
+    }
+}
+
+.wired-tools-tab-icon-wrap {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 48px;
+    height: 43px;
+    margin-bottom: 1px;
+}
+
+.wired-tools-tab-icon {
+    display: block;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: auto;
+}
+
+.wired-tools-tab-monitor,
+.wired-tools-tab-variables,
+.wired-tools-tab-chests,
+.wired-tools-tab-tools,
+.wired-tools-tab-settings {
+    width: 40px;
+    height: 40px;
+}
+
+.wired-tools-tab-monitor {
+    background-image: url('@/assets/images/toolbar/icons/wired_tools_monitor.png');
+}
+
+.wired-tools-tab-variables {
+    background-image: url('@/assets/images/toolbar/icons/wired_tools_variables.png');
+}
+
+.wired-tools-tab-inspection {
+    width: 35px;
+    height: 35px;
+    background-image: url('@/assets/images/toolbar/icons/wired_tools_inspection.png');
+}
+
+.wired-tools-tab-chests {
+    background-image: url('@/assets/images/toolbar/icons/wired_tools_chests.png');
+}
+
+.wired-tools-tab-tools {
+    background-image: url('@/assets/images/toolbar/icons/engineer_catalog.png');
+}
+
+.wired-tools-tab-settings {
+    background-image: url('@/assets/images/toolbar/icons/wired_tools_settings.png');
+}
+
+.wired-tools-tab-label {
+    display: flex;
+    justify-content: center;
+    min-height: 17px;
+    color: #1d1a16;
+}
+
+.wired-tools-tab-title-shell {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 56px;
+    height: 0;
+    margin-top: 0;
+    padding: 0 3px;
+    opacity: 0;
+    overflow: hidden;
+    box-shadow: 0 1px 3px rgba(39, 68, 82, .24);
+    pointer-events: none;
+}
+
+.wired-tools-window-top {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 31px;
+    padding: 5px 7px 0;
+    background: linear-gradient(#d7e6ed, #c3d8e2);
+    cursor: move;
+}
+
+.wired-tools-window-title {
+    flex: 0 0 auto;
+    color: #1d1a16;
+}
+
+.nitro-wired-creator-tools,
+.nitro-wired-logs,
+.nitro-wired-chest-logs,
+.nitro-wired-chest-log-detail {
+    .nw-btn {
+        width: 24px;
+        height: 20px;
+        padding: 0;
+        border: 0;
+        background-color: transparent;
+        background-repeat: no-repeat;
+        cursor: pointer;
+    }
+
+    .nw-btn-close {
+        position: absolute;
+        top: 7px;
+        right: 8px;
+        z-index: 5;
+        background-image: url('@/assets/images/wired/cancel_wired_menu_nohover.png');
+        background-size: contain;
+        background-position: center;
+
+        &:hover,
+        &:active {
+            background-image: url('@/assets/images/wired/cancel_wired_menu_hover.png');
+        }
+    }
+
+    .wired-tools-window-top .nw-btn-close {
+        top: 4px;
+    }
+}
+
+.wired-tools-content {
+    position: relative;
+    height: 530px;
+    min-height: 530px;
+    margin-top: -1px;
+    padding: 10px 11px 11px;
+    overflow: hidden;
+    border-top: 0;
+    background: #d8e4ea;
+    box-shadow: inset 0 1px #ffffff;
+
+    &::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        right: 0;
+        left: 0;
+        z-index: 1;
+        height: 1px;
+        background: #4c92b4;
+        pointer-events: none;
+    }
+
+    &::after {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: var(--wired-tools-active-tab-left, 11px);
+        z-index: 2;
+        width: 136px;
+        height: 1px;
+        background: #d8e4ea;
+        pointer-events: none;
+    }
+}
+
+.nitro-wired-logs .wired-tools-content::after,
+.nitro-wired-chest-logs .wired-tools-content::after,
+.nitro-wired-chest-log-detail .wired-tools-content::after {
+    display: none;
+}
+
+.wired-tools-content-monitor { --wired-tools-active-tab-left: 11px; }
+.wired-tools-content-variables { --wired-tools-active-tab-left: 146px; }
+.wired-tools-content-inspection { --wired-tools-active-tab-left: 281px; }
+.wired-tools-content-chests { --wired-tools-active-tab-left: 416px; }
+.wired-tools-content-tools { --wired-tools-active-tab-left: 551px; }
+.wired-tools-content-settings { --wired-tools-active-tab-left: 686px; }
+
+.wired-tools-tab-content {
+    position: relative;
+    height: 100%;
+    min-height: 0;
+}
+
+.wired-tools-tab-panel {
+    position: absolute;
+    inset: 0;
+    opacity: 0;
+    transform: translateY(2px);
+    visibility: hidden;
+    transition: opacity 95ms ease-out, transform 95ms ease-out, visibility 0s linear 95ms;
+    pointer-events: none;
+
+    &.is-active {
+        position: relative;
+        opacity: 1;
+        transform: translateY(0);
+        visibility: visible;
+        transition-delay: 0s;
+        pointer-events: auto;
+    }
+
+    &:not(.is-active) {
+        max-height: 100%;
+        overflow: hidden;
+        pointer-events: none;
+    }
+}
+
+.wired-tools-grid {
+    display: grid;
+    grid-template-columns: 300px minmax(0, 1fr);
+    gap: 12px;
+    height: 100%;
+}
+
+.wired-tools-variables {
+    grid-template-columns: 360px minmax(0, 1fr);
+}
+
+.wired-tools-inspection {
+    grid-template-columns: 340px minmax(0, 1fr);
+}
+
+.wired-tools-tools {
+    grid-template-columns: 500px minmax(0, 1fr);
+}
+
+.wired-tools-panel {
+    min-width: 0;
+    padding: 9px 10px 10px;
+    border: 1px solid #688a9a;
+    border-radius: 4px;
+    background: #eef3f5;
+    box-shadow: inset 1px 1px #ffffff, inset -1px -1px #b5c8d1;
+}
+
+.wired-tools-panel-wide {
+    min-width: 0;
+}
+
+.wired-tools-side-panel {
+    display: flex;
+    flex-direction: column;
+    gap: 9px;
+}
+
+.wired-tools-panel-title {
+    display: block;
+    min-height: 17px;
+    margin: 1px 0 8px;
+    color: #30291f;
+}
+
+.wired-tools-stat-list,
+.wired-tools-checkbox-list {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.wired-tools-stat-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    min-height: 26px;
+    padding: 4px 7px;
+    border: 1px solid #b8c9d1;
+    border-radius: 3px;
+    background: #ffffff;
+}
+
+.wired-tools-live-value {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 28px;
+    border-radius: 3px;
+}
+
+.wired-tools-stat-row.is-live-updated.wired-tools-pulse-a,
+.wired-tools-table tr.is-live-updated.wired-tools-pulse-a td {
+    animation: wired-tools-row-pulse-a 420ms ease-out;
+}
+
+.wired-tools-stat-row.is-live-updated.wired-tools-pulse-b,
+.wired-tools-table tr.is-live-updated.wired-tools-pulse-b td {
+    animation: wired-tools-row-pulse-b 420ms ease-out;
+}
+
+@keyframes wired-tools-row-pulse-a {
+    0% {
+        background-color: #ffffff;
+        box-shadow: inset 0 0 0 0 rgba(44, 174, 188, 0);
+    }
+
+    32% {
+        background-color: #d9f7fb;
+        box-shadow: inset 0 0 0 1px rgba(44, 174, 188, .72), 0 0 7px rgba(44, 174, 188, .28);
+    }
+
+    100% {
+        background-color: #ffffff;
+        box-shadow: inset 0 0 0 0 rgba(44, 174, 188, 0);
+    }
+}
+
+@keyframes wired-tools-row-pulse-b {
+    0% {
+        background-color: #ffffff;
+        box-shadow: inset 0 0 0 0 rgba(44, 174, 188, 0);
+    }
+
+    32% {
+        background-color: #d9f7fb;
+        box-shadow: inset 0 0 0 1px rgba(44, 174, 188, .72), 0 0 7px rgba(44, 174, 188, .28);
+    }
+
+    100% {
+        background-color: #ffffff;
+        box-shadow: inset 0 0 0 0 rgba(44, 174, 188, 0);
+    }
+}
+
+@keyframes wired-tools-highlight-pulse-a {
+    0% {
+        transform: translateY(0);
+        box-shadow: inset 1px 1px #b9d8e6, inset -1px -1px #4b829d, 1px 1px rgba(0, 0, 0, .22);
+    }
+
+    36% {
+        transform: translateY(-2px);
+        box-shadow: inset 1px 1px #d8f1fb, inset -1px -1px #3b7892, 0 0 8px rgba(44, 174, 188, .45), 1px 1px rgba(0, 0, 0, .22);
+    }
+
+    100% {
+        transform: translateY(0);
+        box-shadow: inset 1px 1px #b9d8e6, inset -1px -1px #4b829d, 1px 1px rgba(0, 0, 0, .22);
+    }
+}
+
+@keyframes wired-tools-highlight-pulse-b {
+    0% {
+        transform: translateY(0);
+        box-shadow: inset 1px 1px #b9d8e6, inset -1px -1px #4b829d, 1px 1px rgba(0, 0, 0, .22);
+    }
+
+    36% {
+        transform: translateY(-2px);
+        box-shadow: inset 1px 1px #d8f1fb, inset -1px -1px #3b7892, 0 0 8px rgba(44, 174, 188, .45), 1px 1px rgba(0, 0, 0, .22);
+    }
+
+    100% {
+        transform: translateY(0);
+        box-shadow: inset 1px 1px #b9d8e6, inset -1px -1px #4b829d, 1px 1px rgba(0, 0, 0, .22);
+    }
+}
+
+.wired-tools-stats-art {
+    width: 199px;
+    height: 183px;
+    margin: 22px auto 0;
+    background-image: url('@/assets/images/toolbar/icons/wired_tools_pic.png');
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.wired-tools-table-wrap {
+    max-height: 238px;
+    overflow: auto;
+    border: 1px solid #688a9a;
+    border-radius: 3px;
+    background: #ffffff;
+}
+
+.wired-tools-table {
+    width: 100%;
+    border-collapse: collapse;
+    color: #1d1a16;
+
+    th {
+        position: sticky;
+        top: 0;
+        z-index: 1;
+        padding: 5px 7px;
+        border-bottom: 1px solid #8eb2c2;
+        background: #cecece;
+        text-align: left;
+        white-space: nowrap;
+    }
+
+    td {
+        padding: 4px 7px;
+        border-bottom: 1px solid #e2e8eb;
+        vertical-align: middle;
+    }
+
+    tr:nth-child(even) td {
+        background: #f5f7f8;
+    }
+
+    tr.is-selected td {
+        background: #d9eaf2;
+        box-shadow: inset 0 0 0 1px rgba(76, 146, 180, .42);
+    }
+}
+
+.nitro-wired-creator-tools,
+.nitro-wired-logs,
+.nitro-wired-chest-logs,
+.nitro-wired-chest-log-detail,
+.wired-tools-highlight-overlay,
+.wired-tools-item-bubble {
+    .wired-tools-ui-text {
+        display: inline-flex;
+        align-items: center;
+        min-height: 14px;
+        color: #30291f;
+        font-family: Ubuntu, Arial, sans-serif;
+        font-size: 10px;
+        font-weight: 400;
+        letter-spacing: 0;
+        line-height: 14px;
+        text-shadow: none;
+        white-space: nowrap;
+    }
+}
+
+.wired-tools-log-table {
+    max-height: none;
+    overflow: visible;
+
+    .wired-tools-table {
+        table-layout: fixed;
+
+        td {
+            vertical-align: middle;
+        }
+
+        th:nth-child(1),
+        td:nth-child(1) {
+            width: 28%;
+        }
+
+        th:nth-child(2),
+        td:nth-child(2) {
+            width: 24%;
+        }
+
+        th:nth-child(3),
+        td:nth-child(3) {
+            width: 18%;
+            text-align: center;
+        }
+
+        th:nth-child(4),
+        td:nth-child(4) {
+            width: 30%;
+        }
+    }
+}
+
+.wired-tools-log-type-info {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+}
+
+.wired-tools-log-type-link {
+    cursor: help;
+    text-decoration: underline;
+    text-decoration-thickness: 1px;
+    text-underline-offset: 2px;
+}
+
+.wired-tools-log-hover-panel {
+    position: fixed;
+    z-index: 5000;
+    display: grid;
+    grid-template-columns: 40px minmax(0, 1fr);
+    align-items: center;
+    column-gap: 10px;
+    width: 370px;
+    min-height: 112px;
+    padding: 9px 10px 10px;
+    border: 1px solid #2b5061;
+    border-radius: 4px;
+    background: #f6fafb;
+    box-shadow: inset 1px 1px #ffffff, 2px 2px 0 rgba(54, 78, 90, .22);
+    color: #30291f;
+    white-space: normal;
+    pointer-events: none;
+    transform: translate(-50%, -100%);
+
+    &::after {
+        content: '';
+        position: absolute;
+        left: 50%;
+        bottom: -6px;
+        width: 10px;
+        height: 10px;
+        border-right: 1px solid #2b5061;
+        border-bottom: 1px solid #2b5061;
+        background: #f6fafb;
+        transform: translateX(-50%) rotate(45deg);
+    }
+}
+
+.wired-tools-log-hover-panel-bottom {
+    transform: translate(-50%, 0);
+
+    &::after {
+        top: -6px;
+        bottom: auto;
+        border-right: 0;
+        border-bottom: 0;
+        border-left: 1px solid #2b5061;
+        border-top: 1px solid #2b5061;
+    }
+}
+
+.wired-tools-log-hover-title {
+    display: flex;
+    grid-column: 1 / -1;
+    justify-content: center;
+    min-height: 17px;
+    margin-bottom: 7px;
+    color: #30291f;
+}
+
+.wired-tools-log-hover-icon {
+    width: 40px;
+    height: 40px;
+    align-self: center;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 40px 40px;
+}
+
+.wired-tools-log-hover-icon-error {
+    background-image: url('@/assets/images/wired/wired_error.png');
+}
+
+.wired-tools-log-hover-icon-warning {
+    background-image: url('@/assets/images/wired/wired_warning.png');
+}
+
+.wired-tools-log-hover-copy {
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+    font-family: Ubuntu, Arial, sans-serif;
+    font-size: 10px;
+    line-height: 14px;
+}
+
+.wired-tools-log-hover-list {
+    padding-left: 7px;
+}
+
+.wired-tools-severity {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 58px;
+    height: 16px;
+    padding: 0 5px;
+    border: 1px solid rgba(45, 45, 45, .24);
+    border-radius: 3px;
+    box-shadow: none;
+    color: #1d1a16;
+    text-align: center;
+    transform: translateY(-6px);
+
+    .wired-tools-strong-text {
+        min-height: 0;
+        height: 10px;
+        align-items: center;
+        justify-content: center;
+        line-height: 10px;
+        transform: translateY(-1px);
+    }
+}
+
+.wired-tools-severity-error {
+    background: #f1b5b1;
+    border-color: #c87873;
+}
+
+.wired-tools-severity-warn,
+.wired-tools-severity-warning {
+    background: #f3c37f;
+    border-color: #d59a4f;
+}
+
+.wired-tools-severity-info {
+    background: #b9d8f0;
+    border-color: #76a8cf;
+}
+
+.wired-tools-severity-debug {
+    background: #f2df86;
+    border-color: #cdb84c;
+}
+
+.wired-tools-actions {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 8px;
+    margin-top: 13px;
+}
+
+.wired-tools-inspection-actions {
+    position: relative;
+}
+
+.wired-tools-field {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 9px;
+    margin-bottom: 8px;
+}
+
+.wired-tools-give-variable-popover {
+    position: absolute;
+    right: 0;
+    bottom: calc(100% + 8px);
+    z-index: 20;
+    width: 286px;
+    margin: 0;
+    padding: 8px;
+    border: 1px solid #688a9a;
+    border-radius: 4px;
+    background: #ffffff;
+    box-shadow: inset 1px 1px #ffffff, 2px 2px 0 rgba(54, 78, 90, .18);
+
+    .wired-tools-actions {
+        margin-top: 4px;
+    }
+
+    .wired-tools-dropdown {
+        min-width: 158px;
+        width: 158px;
+    }
+
+    .nw-input-wrap.nw-w-56 {
+        width: 56px;
+        flex: 0 0 56px;
+    }
+}
+
+.wired-tools-icon-picker {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    padding-bottom: 3px;
+}
+
+.wired-tools-icon-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 46px;
+    height: 42px;
+    border: 1px solid #668797;
+    border-radius: 5px;
+    background: #d7e2e7;
+    box-shadow: none;
+
+    &:hover,
+    &.is-active {
+        border-color: #1f1a13;
+    }
+}
+
+.wired-tools-icon-button[data-variable-type='furni']:hover {
+    background: #d9bd50;
+}
+
+.wired-tools-icon-button[data-variable-type='furni'].is-active {
+    background: #c09f1b;
+}
+
+.wired-tools-icon-button[data-variable-type='user']:hover {
+    background: #42be45;
+}
+
+.wired-tools-icon-button[data-variable-type='user'].is-active {
+    background: #28952a;
+}
+
+.wired-tools-icon-button[data-variable-type='global']:hover {
+    background: #2db8c5;
+}
+
+.wired-tools-icon-button[data-variable-type='global'].is-active {
+    background: #1f8b94;
+}
+
+.wired-tools-icon-button[data-variable-type='context']:hover {
+    background: #d28c54;
+}
+
+.wired-tools-icon-button[data-variable-type='context'].is-active {
+    background: #b76421;
+}
+
+.wired-tools-icon-picker-tool {
+    gap: 7px;
+}
+
+.wired-tools-tool-search-input {
+    width: 100%;
+    margin: -2px 0 7px;
+}
+
+.wired-tools-icon-button[data-tool-type='triggers']:hover {
+    background: #ecbd6a;
+}
+
+.wired-tools-icon-button[data-tool-type='triggers'].is-active {
+    background: #d6912f;
+}
+
+.wired-tools-icon-button[data-tool-type='effects']:hover {
+    background: #88cce3;
+}
+
+.wired-tools-icon-button[data-tool-type='effects'].is-active {
+    background: #399bb9;
+}
+
+.wired-tools-icon-button[data-tool-type='conditions']:hover {
+    background: #c5df87;
+}
+
+.wired-tools-icon-button[data-tool-type='conditions'].is-active {
+    background: #89ad36;
+}
+
+.wired-tools-icon-button[data-tool-type='selectors']:hover {
+    background: #c6b1e5;
+}
+
+.wired-tools-icon-button[data-tool-type='selectors'].is-active {
+    background: #8b68c4;
+}
+
+.wired-tools-icon-button[data-tool-type='addons']:hover {
+    background: #f1a8a0;
+}
+
+.wired-tools-icon-button[data-tool-type='addons'].is-active {
+    background: #cc6359;
+}
+
+.wired-tools-icon-button[data-tool-type='variables']:hover {
+    background: #7bcfc5;
+}
+
+.wired-tools-icon-button[data-tool-type='variables'].is-active {
+    background: #32998e;
+}
+
+.wired-tools-icon-button[data-tool-type='extras']:hover {
+    background: #e3c783;
+}
+
+.wired-tools-icon-button[data-tool-type='extras'].is-active {
+    background: #b89337;
+}
+
+.wired-tools-variable-icon {
+    display: block;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: auto;
+}
+
+.wired-tools-variable-furni {
+    width: 18px;
+    height: 25px;
+    background-image: url('@/assets/images/toolbar/icons/wired_variable_furni_icon.png');
+}
+
+.wired-tools-variable-user {
+    width: 16px;
+    height: 20px;
+    background-image: url('@/assets/images/toolbar/icons/wired_variable_user_icon.png');
+}
+
+.wired-tools-variable-global {
+    width: 27px;
+    height: 27px;
+    background-image: url('@/assets/images/toolbar/icons/wired_variable_global_icon.png');
+}
+
+.wired-tools-variable-context {
+    width: 21px;
+    height: 20px;
+    background-image: url('@/assets/images/toolbar/icons/wired_variable_context_icon.png');
+}
+
+.wired-tools-tool-triggers,
+.wired-tools-tool-effects,
+.wired-tools-tool-conditions,
+.wired-tools-tool-selectors,
+.wired-tools-tool-addons,
+.wired-tools-tool-variables,
+.wired-tools-tool-extras {
+    width: 30px;
+    height: 30px;
+}
+
+.wired-tools-tool-triggers {
+    background-image: url('@/assets/images/toolbar/icons/trigger_tools.png');
+}
+
+.wired-tools-tool-effects {
+    background-image: url('@/assets/images/toolbar/icons/effect_tools.png');
+}
+
+.wired-tools-tool-conditions {
+    background-image: url('@/assets/images/toolbar/icons/condition_tools.png');
+}
+
+.wired-tools-tool-selectors {
+    background-image: url('@/assets/images/toolbar/icons/selector_tools.png');
+}
+
+.wired-tools-tool-addons {
+    background-image: url('@/assets/images/toolbar/icons/addon_tools.png');
+}
+
+.wired-tools-tool-variables {
+    background-image: url('@/assets/images/toolbar/icons/variable_tools.png');
+}
+
+.wired-tools-tool-extras {
+    background-image: url('@/assets/images/toolbar/icons/extra_tools.png');
+}
+
+.wired-tools-item-grid {
+    display: grid;
+    grid-template-columns: repeat(8, 52px);
+    align-content: start;
+    justify-content: center;
+    gap: 6px;
+    flex: 1;
+    min-height: 0;
+    padding: 7px;
+    overflow-x: hidden;
+    overflow-y: auto;
+    border: 1px solid #688a9a;
+    border-radius: 3px;
+    background: #ffffff;
+}
+
+.wired-tools-item-button {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 52px;
+    height: 48px;
+    min-width: 0;
+    border: 1px solid #9fb3bd;
+    border-radius: 4px;
+    background: #edf3f6;
+    box-shadow: none;
+    cursor: pointer;
+
+    &:hover,
+    &.is-active {
+        border-color: #1f1a13;
+        background: #d9eaf2;
+    }
+
+    &.is-active {
+        border-color: #4c92b4;
+        box-shadow: none;
+    }
+
+    img {
+        max-width: 42px;
+        max-height: 42px;
+        image-rendering: pixelated;
+    }
+}
+
+.wired-tools-item-bubble {
+    position: fixed;
+    z-index: 5000;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    width: max-content;
+    min-width: 168px;
+    max-width: 270px;
+    min-height: 62px;
+    padding: 8px 10px;
+    border: 1px solid #2b5061;
+    border-radius: 4px;
+    background: #f6fafb;
+    box-shadow: inset 1px 1px #ffffff, 2px 2px 0 rgba(54, 78, 90, .22);
+    opacity: 1;
+    transform: translate(-50%, -100%);
+    pointer-events: none;
+
+    &::after {
+        content: '';
+        position: absolute;
+        left: 50%;
+        bottom: -6px;
+        width: 10px;
+        height: 10px;
+        border-right: 1px solid #2b5061;
+        border-bottom: 1px solid #2b5061;
+        background: #f6fafb;
+        transform: translateX(-50%) rotate(45deg);
+    }
+
+    .wired-tools-ui-text {
+        min-width: 0;
+        white-space: normal;
+    }
+}
+
+.wired-tools-item-bubble-bottom {
+    transform: translate(-50%, 0);
+
+    &::after {
+        top: -6px;
+        bottom: auto;
+        border-right: 0;
+        border-bottom: 0;
+        border-left: 1px solid #2b5061;
+        border-top: 1px solid #2b5061;
+    }
+}
+
+.wired-tools-item-bubble-image {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 76px;
+    min-height: 64px;
+    flex: 0 0 auto;
+
+    .furni-image {
+        flex: 0 0 auto;
+        image-rendering: pixelated;
+    }
+}
+
+.wired-tools-tool-details {
+    display: flex;
+    flex-direction: column;
+}
+
+.wired-tools-tool-preview {
+    display: flex;
+    flex: 0 0 auto;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 10px;
+    min-height: 82px;
+    padding: 8px 10px;
+    border: 1px solid #688a9a;
+    border-radius: 3px;
+    background: #e6edf1;
+}
+
+.wired-tools-tool-preview-image {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 92px;
+    min-height: 58px;
+    padding: 5px;
+    border: 1px solid #b8c9d1;
+    border-radius: 4px;
+    background: #ffffff;
+
+    .furni-image {
+        max-width: 100%;
+        max-height: 100%;
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: contain;
+        image-rendering: pixelated;
+    }
+}
+
+.wired-tools-tool-preview-image-selector {
+    min-width: 108px;
+    min-height: 74px;
+    padding: 4px;
+
+    .furni-image {
+        max-width: 100%;
+        max-height: 100%;
+    }
+}
+
+.wired-tools-tool-details-no-showcase {
+    .wired-tools-tool-preview {
+        flex: 1;
+        flex-direction: column;
+        justify-content: center;
+        text-align: center;
+    }
+
+    .wired-tools-tool-preview-image {
+        width: 132px;
+        height: 112px;
+    }
+}
+
+.wired-tools-empty-state {
+    display: flex;
+    grid-column: 1 / -1;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    min-height: 120px;
+    text-align: center;
+}
+
+.wired-tools-tool-details > .wired-tools-panel-title:nth-of-type(2) {
+    padding-top: 8px;
+}
+
+.wired-tools-showcase-skeleton {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex: 0 0 300px;
+    width: 480px;
+    height: 300px;
+    min-height: 300px;
+    max-height: 300px;
+    border: 1px solid #688a9a;
+    border-radius: 3px;
+    background: repeating-linear-gradient(
+        -45deg,
+        #eef5f7,
+        #eef5f7 10px,
+        #e4edf1 10px,
+        #e4edf1 20px
+    );
+    overflow: hidden;
+}
+
+.wired-tools-showcase-preview {
+    display: block;
+    width: 480px;
+    height: 300px;
+    object-fit: contain;
+    image-rendering: pixelated;
+}
+
+.wired-tools-picker-list {
+    flex: 1;
+    min-height: 0;
+    max-height: 340px;
+    overflow: auto;
+    border: 1px solid #688a9a;
+    border-radius: 3px;
+    background: #ffffff;
+}
+
+.wired-tools-picker-row {
+    display: block;
+    width: 100%;
+    min-height: 22px;
+    padding: 3px 7px 4px;
+    border: 0;
+    border-bottom: 1px solid #e4dcc8;
+    background: transparent;
+    color: #30291f;
+    text-align: left;
+
+    &:hover,
+    &.is-active {
+        background: #d9eaf2;
+    }
+}
+
+.wired-tools-preview {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 170px;
+    border: 1px solid #688a9a;
+    border-radius: 3px;
+    background: #e6edf1;
+    color: #5b554a;
+    text-align: center;
+}
+
+.wired-tools-selected-preview {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    min-width: 0;
+}
+
+.wired-tools-selected-preview-image {
+    position: relative;
+    z-index: 1;
+    width: 316px;
+    max-width: 100%;
+    height: 298px;
+    box-sizing: border-box;
+    overflow: hidden;
+
+    img {
+        position: absolute;
+        left: 50%;
+        bottom: 111px;
+        display: block;
+        max-width: 300px;
+        max-height: 260px;
+        object-fit: contain;
+        image-rendering: pixelated;
+        transform: translateX(-50%);
+    }
+
+    .avatar-image {
+        position: absolute;
+        left: 50%;
+        bottom: 70px;
+        width: 90px;
+        height: 160px;
+        transform: translateX(-50%);
+    }
+
+    .pet-image {
+        position: absolute;
+        left: 50%;
+        bottom: 70px;
+        transform: translateX(-50%);
+    }
+}
+
+.wired-tools-user-preview .wired-tools-selected-preview-image,
+.wired-tools-furni-preview .wired-tools-selected-preview-image {
+    background: url('@/assets/images/toolbar/icons/inspection_background.png') center / 316px 298px no-repeat;
+    image-rendering: pixelated;
+}
+
+.wired-tools-furni-preview .wired-tools-selected-preview-image {
+    align-items: flex-start;
+    padding-top: 0;
+}
+
+.wired-tools-selected-preview > .wired-tools-ui-text {
+    position: absolute;
+    bottom: 10px;
+    left: 50%;
+    z-index: 2;
+    width: max-content;
+    max-width: calc(100% - 20px);
+    transform: translateX(-50%);
+    margin-top: 0;
+    font-size: 13px;
+    font-weight: 700;
+    line-height: 17px;
+    text-align: center;
+    white-space: nowrap;
+    pointer-events: none;
+}
+
+.wired-tools-inspection .wired-tools-side-panel {
+    min-height: 470px;
+}
+
+.wired-tools-inspection .wired-tools-preview {
+    flex: 1;
+    min-height: 300px;
+}
+
+.wired-tools-inspection .wired-tools-table-wrap {
+    max-height: 388px;
+}
+
+.wired-tools-inspection-table {
+    .wired-tools-table {
+        table-layout: fixed;
+
+        th:nth-child(1),
+        td:nth-child(1) {
+            width: 58%;
+        }
+
+        th:nth-child(2),
+        td:nth-child(2) {
+            width: 42%;
+            text-align: center;
+        }
+
+        .wired-tools-live-value {
+            width: 100%;
+            justify-content: center;
+        }
+
+        .wired-tools-subvariable-row td:first-child .wired-tools-ui-text {
+            padding-left: 14px;
+        }
+
+        .wired-tools-editable-value-cell {
+            cursor: text;
+        }
+
+        .wired-tools-inline-value-input {
+            width: 100%;
+            min-width: 0;
+        }
+    }
+}
+
+.wired-tools-global-preview {
+    display: block;
+    width: 120px;
+    height: 120px;
+    background-image: url('@/assets/images/wired/wired_global_variable_preview.png');
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+}
+
+.wired-tools-settings {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 12px;
+}
+
+.wired-tools-dropdown {
+    min-width: 116px;
+}
+
+.wired-tools-settings .wired-tools-dropdown {
+    width: 190px;
+}
+
+.wired-tools-placeholder {
+    min-height: 320px;
+}
+
+.wired-tools-log-filters {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    margin-bottom: 9px;
+}
+
+.wired-tools-pager {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+    margin-top: 10px;
+    min-height: 24px;
+
+    .nw-adjust {
+        border: 0;
+        padding: -5;
+        background: transparent;
+        line-height: 0;
+        cursor: pointer;
+
+        img {
+            display: block;
+            width: auto;
+            height: auto;
+            max-width: none;
+            max-height: none;
+            image-rendering: pixelated;
+        }
+
+        &:disabled {
+            cursor: default;
+            filter: grayscale(1);
+            opacity: .5;
+        }
+    }
+
+    .nw-adjust-left {
+        transform: translateX(4px);
+    }
+
+    .nw-adjust-right {
+        transform: translateX(-4px);
+    }
+
+    .wired-tools-panel-title {
+        margin: 0;
+    }
+
+    .wired-tools-pager-total {
+        display: inline-flex;
+        align-items: center;
+        min-height: 20px;
+        margin: 0 4px 0 2px;
+    }
+}
+
+.wired-tools-logs-content {
+    min-height: 360px;
+}
+
+.nitro-wired-logs .wired-tools-content,
+.nitro-wired-chest-logs .wired-tools-content,
+.nitro-wired-chest-log-detail .wired-tools-content {
+    height: calc(100% - 31px);
+    min-height: 0;
+    max-height: none;
+}
+
+.wired-tools-chests {
+    grid-template-columns: 292px minmax(0, 1fr);
+}
+
+.wired-tools-chest-actions {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 7px;
+
+    .btn {
+        min-height: 30px;
+        white-space: normal;
+        line-height: 1.1;
+    }
+}
+
+.wired-tools-clickable-row {
+    cursor: pointer;
+
+    &:hover td {
+        background: #e2f0f6;
+    }
+}
+
+.wired-tools-link-button {
+    display: inline-flex;
+    align-items: center;
+    min-width: 0;
+    padding: 0;
+    border: 0;
+    background: transparent;
+    color: #1d1a16;
+    text-align: left;
+    text-decoration: underline;
+    text-decoration-thickness: 1px;
+    text-underline-offset: 2px;
+    cursor: pointer;
+}
+
+.wired-tools-chest-summary-table {
+    max-height: 386px;
+
+    .wired-tools-table {
+        table-layout: fixed;
+
+        th:nth-child(1),
+        td:nth-child(1) {
+            width: 21%;
+        }
+
+        th:nth-child(2),
+        td:nth-child(2) {
+            width: 19%;
+        }
+
+        th:nth-child(3),
+        td:nth-child(3),
+        th:nth-child(4),
+        td:nth-child(4) {
+            width: 24%;
+        }
+
+        th:nth-child(5),
+        td:nth-child(5) {
+            width: 12%;
+            text-align: center;
+        }
+    }
+}
+
+.wired-tools-chest-logs-content {
+    min-height: 395px;
+}
+
+.wired-tools-chest-logs-window {
+    .wired-tools-table-wrap {
+        height: 330px;
+        min-height: 330px;
+        max-height: 330px;
+        overflow: auto;
+    }
+
+    .wired-tools-table {
+        table-layout: fixed;
+
+        th:nth-child(1),
+        td:nth-child(1) {
+            width: 19%;
+        }
+
+        th:nth-child(2),
+        td:nth-child(2) {
+            width: 18%;
+        }
+
+        th:nth-child(3),
+        td:nth-child(3) {
+            width: 15%;
+        }
+
+        th:nth-child(4),
+        td:nth-child(4),
+        th:nth-child(5),
+        td:nth-child(5) {
+            width: 20%;
+        }
+
+        th:nth-child(6),
+        td:nth-child(6) {
+            width: 8%;
+            text-align: center;
+        }
+    }
+}
+
+.wired-tools-chest-detail-content {
+    min-height: 355px;
+}
+
+.wired-tools-chest-detail-window {
+    display: flex;
+    flex-direction: column;
+    gap: 9px;
+    height: 100%;
+    min-height: 0;
+}
+
+.wired-tools-chest-detail-meta {
+    display: grid;
+    grid-template-columns: 1.35fr 1fr .95fr .9fr;
+    align-items: stretch;
+    gap: 10px;
+    min-height: 42px;
+    padding: 6px 7px;
+    border: 1px solid #b8c9d1;
+    border-radius: 3px;
+    background: #eef3f5;
+    box-shadow: inset 1px 1px #ffffff, inset -1px -1px #c5d4db;
+}
+
+.wired-tools-chest-detail-meta-item {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    min-width: 0;
+    gap: 2px;
+}
+
+.wired-tools-chest-trade-view {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 34px minmax(0, 1fr);
+    align-items: stretch;
+    gap: 8px;
+    min-height: 0;
+    flex: 1 1 auto;
+}
+
+.wired-tools-chest-trade-divider {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.wired-tools-chest-trade-arrow {
+    width: 26px;
+    height: auto;
+    image-rendering: pixelated;
+}
+
+.wired-tools-chest-trade-pane {
+    min-width: 0;
+    padding: 7px;
+    border: 1px solid #688a9a;
+    border-radius: 4px;
+    background: #eef3f5;
+    box-shadow: inset 1px 1px #ffffff, inset -1px -1px #b5c8d1;
+}
+
+.wired-tools-chest-pane-title {
+    margin-bottom: 7px;
+}
+
+.wired-tools-chest-trade-items {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    max-height: 252px;
+    overflow-y: auto;
+}
+
+.wired-tools-chest-trade-item {
+    display: grid;
+    grid-template-columns: 52px minmax(0, 1fr);
+    align-items: center;
+    gap: 7px;
+    min-height: 54px;
+    padding: 4px;
+    border: 1px solid #c6d5dc;
+    border-radius: 3px;
+    background: #ffffff;
+}
+
+.wired-tools-chest-trade-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 52px;
+    height: 46px;
+    overflow: hidden;
+
+    img {
+        max-width: 44px;
+        max-height: 40px;
+        object-fit: contain;
+        image-rendering: pixelated;
+    }
+}
+
+.wired-tools-chest-trade-copy {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    min-width: 0;
+    gap: 2px;
+    padding-bottom: 8px;
+
+    .wired-tools-ui-text {
+        white-space: normal;
+        overflow-wrap: anywhere;
+    }
+}
+
+.wired-tools-properties-table {
+    margin-bottom: 12px;
+
+    .wired-tools-table {
+        table-layout: fixed;
+
+        th:nth-child(1),
+        td:nth-child(1) {
+            width: 54%;
+        }
+
+        th:nth-child(2),
+        td:nth-child(2) {
+            width: 46%;
+            text-align: center;
+        }
+    }
+}
+
+.wired-tools-text-values-table {
+    max-height: 194px;
+
+    .wired-tools-table {
+        table-layout: fixed;
+
+        th:nth-child(1),
+        td:nth-child(1) {
+            width: 24%;
+            text-align: center;
+        }
+
+        th:nth-child(2),
+        td:nth-child(2) {
+            width: 76%;
+            text-align: center;
+        }
+    }
+}
+
+.wired-tools-strong-text,
+.wired-tools-button-text {
+    display: inline-flex;
+    align-items: center;
+}
+
+.wired-tools-button-text {
+    min-height: 17px;
+    color: #1d1a16;
+}
+
+.wired-tools-logs-window {
+    .wired-tools-table-wrap {
+        height: 279px;
+        min-height: 279px;
+        max-height: 279px;
+        overflow: auto;
+    }
+
+    .wired-tools-table {
+        table-layout: fixed;
+
+        th:nth-child(1),
+        td:nth-child(1) {
+            width: 24%;
+        }
+
+        th:nth-child(2),
+        td:nth-child(2) {
+            width: 19%;
+        }
+
+        th:nth-child(3),
+        td:nth-child(3) {
+            width: 17%;
+        }
+
+        th:nth-child(4),
+        td:nth-child(4) {
+            width: 40%;
+        }
+
+        td.wired-tools-log-message-cell {
+            vertical-align: middle;
+            white-space: pre-wrap;
+            overflow-wrap: anywhere;
+            word-break: break-word;
+
+            .nw-control-text {
+                display: inline;
+                white-space: pre-wrap;
+                overflow-wrap: anywhere;
+                word-break: break-word;
+                line-height: 14px;
+            }
+        }
+    }
+
+    .wired-tools-empty-log-row {
+        height: 238px;
+
+        td {
+            text-align: center;
+            vertical-align: middle;
+        }
+    }
+}
+
+.wired-tools-choice {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    min-height: 22px;
+    padding: 0;
+    border: 0;
+    background: transparent;
+    color: #1d1a16;
+    text-align: left;
+}
+
+.wired-tools-choice-icon {
+    display: block;
+    flex: 0 0 auto;
+    width: 19px;
+    height: 20px;
+    object-fit: none;
+}
+
+.wired-tools-choice .nw-control-text {
+    display: flex;
+    align-items: center;
+    min-height: 20px;
+}
+
+.wired-tools-log-filters .wired-tools-choice {
+    margin-left: 2px;
+}
+
+.theme-wired-tools {
+    .nw-input-wrap {
+        position: relative;
+        display: block;
+        box-sizing: border-box;
+        height: 20px;
+        min-width: 0;
+        border: 4px solid transparent !important;
+        border-radius: 0 !important;
+        border-image-source: url('@/assets/images/wired/wired_window_empty.png') !important;
+        border-image-slice: 4 fill !important;
+        border-image-width: 4px !important;
+        border-image-repeat: stretch !important;
+        background-color: transparent !important;
+        background-image: none !important;
+        box-shadow: none !important;
+        outline: none !important;
+        color: #929292 !important;
+        overflow: hidden;
+    }
+
+    .nw-input-wrap .nw-input-native {
+        display: block;
+        width: 100%;
+        height: 100%;
+        padding: 0 3px !important;
+        border: 0 !important;
+        border-image: none !important;
+        background: transparent !important;
+        box-shadow: none !important;
+        outline: none !important;
+        color: #30291f !important;
+        caret-color: #111111;
+        -webkit-text-fill-color: #30291f !important;
+        font-family: Ubuntu, Arial, sans-serif !important;
+        font-size: 10px !important;
+        font-weight: 400 !important;
+        letter-spacing: 0 !important;
+        line-height: 14px !important;
+        text-shadow: none;
+    }
+
+    .nw-input-wrap .nw-input-native::selection {
+        color: #111111 !important;
+        background: #b8d6f1 !important;
+        -webkit-text-fill-color: #111111 !important;
+    }
+
+    .nw-input-wrap.nw-input-align-center .nw-input-native {
+        text-align: center;
+    }
+
+    .nw-input {
+        box-sizing: border-box;
+        height: 20px;
+        min-width: 0;
+        padding: 0 3px !important;
+        border: solid transparent !important;
+        border-width: 5px !important;
+        border-radius: 0 !important;
+        border-image-source: url('@/assets/images/wired/wired_window_empty.png') !important;
+        border-image-slice: 5 fill !important;
+        border-image-width: 5px !important;
+        border-image-repeat: stretch !important;
+        background-color: transparent !important;
+        background-image: none !important;
+        box-shadow: none !important;
+        outline: none !important;
+        color: #30291f !important;
+        font-family: Ubuntu, Arial, sans-serif !important;
+        font-size: 10px !important;
+        font-weight: 400 !important;
+        letter-spacing: 0 !important;
+        line-height: 10px !important;
+        text-shadow: none;
+    }
+
+    .nw-select-wrap.wired-tools-dropdown {
+        position: relative;
+        display: inline-block;
+        width: 116px;
+        min-height: 22px;
+        border: 0;
+        background: transparent;
+        z-index: 2;
+
+        &.is-open .nw-select {
+            visibility: hidden;
+        }
+    }
+
+    .nw-select-wrap.wired-tools-dropdown .nw-select {
+        appearance: none;
+        display: flex;
+        align-items: center;
+        width: 100%;
+        min-width: 100%;
+        height: 22px;
+        padding: 0 0 0 2px !important;
+        border: solid transparent !important;
+        border-width: 5px 22px 5px 6px !important;
+        border-radius: 0 !important;
+        border-image-source: url('@/assets/images/wired/wired_dropdown_unhover.png') !important;
+        border-image-slice: 5 22 5 6 fill !important;
+        border-image-width: 5px 22px 5px 6px !important;
+        border-image-repeat: stretch !important;
+        background-color: #ffffff !important;
+        background-clip: padding-box;
+        box-shadow: none !important;
+        outline: none !important;
+        cursor: pointer;
+
+        &:hover,
+        &:focus {
+            border-image-source: url('@/assets/images/wired/wired_dropdown_hover.png') !important;
+        }
+    }
+
+    .nw-select-wrap.wired-tools-dropdown .nw-select-value {
+        display: flex;
+        align-items: center;
+        width: 100%;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+
+        .bitmap-text {
+            position: relative;
+            top: 3px;
+        }
+    }
+
+    .nw-input-wrap.wired-tools-input {
+        width: 194px;
+    }
+
+    .nw-input-wrap.wired-tools-log-filter-input {
+        width: 194px;
+    }
+
+    .nw-input-wrap.wired-tools-tool-search-input {
+        width: 100%;
+        margin: -2px 0 7px;
+    }
+
+    .nw-input-wrap.wired-tools-page-input {
+        width: 52px;
+    }
+
+    .nw-input-wrap.wired-tools-inline-value-input {
+        width: 100%;
+        min-width: 0;
+    }
+
+    .wired-tools-actions .btn,
+    .wired-tools-side-panel > .btn {
+        min-height: 24px;
+        padding: 2px 9px 4px !important;
+        border: 1px solid #6f92a3 !important;
+        border-radius: 3px !important;
+        background: #d7e6ed !important;
+        background-image: none !important;
+        box-shadow: none !important;
+        color: #1d1a16 !important;
+
+        &:hover:not(:disabled) {
+            background: #e4eef3 !important;
+        }
+
+        &:active:not(:disabled) {
+            background: #c4d8e2 !important;
+            box-shadow: none !important;
+        }
+
+        &:disabled {
+            filter: saturate(.78);
+            opacity: .72;
+        }
+    }
+
+    .wired-tools-actions .btn-danger {
+        border-color: #b87974 !important;
+        background: #efc6c2 !important;
+        background-image: none !important;
+        box-shadow: none !important;
+
+        &:hover:not(:disabled) {
+            background: #f5d5d2 !important;
+        }
+
+        &:active:not(:disabled) {
+            background: #e3aaa5 !important;
+            box-shadow: none !important;
+        }
+    }
+
+    .wired-tools-settings .nw-select-wrap.wired-tools-dropdown {
+        width: 190px;
+    }
+}
+
+.nw-select-list.wired-tools-dropdown .nw-select-option:disabled {
+    color: #8b8b8b !important;
+    cursor: default;
+    filter: grayscale(1);
+    opacity: .62;
+}
