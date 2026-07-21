@@ -29,5 +29,7 @@ Thumbs.db
 .env
 public/renderer-config*
 public/ui-config*
-/.yarn/
+/.yarn/*
+!/.yarn/patches
+!/.yarn/patches/**
 /deploy.ps1
