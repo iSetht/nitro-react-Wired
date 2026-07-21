@@ -547,6 +547,10 @@ const VARIABLE_DEFINITIONS: Record<VariableType, VariableDefinition[]> = {
         createInternalVariable('@position.y', 'Furni', 'Yes', 'Yes'),
         createInternalVariable('@rotation', 'Furni', 'Yes', 'Yes'),
         createInternalVariable('@altitude', 'Furni', 'Yes', 'Yes'),
+        createInternalVariable('@gravity', 'Furni', 'Yes', 'Yes', [
+            { value: '1', text: 'Enabled' },
+            { value: '0', text: 'Disabled' }
+        ]),
         createInternalVariable('@is_invisible', 'Furni', 'Yes', 'No'),
         createInternalVariable('@type', 'Furni', 'Yes', 'No', [
             { value: '0', text: 'Normal' },
@@ -1107,7 +1111,7 @@ const getInspectionVariables = (inspectionType: InspectionType, inspectionValues
 const isCreatedInspectionVariable = (variableKey: string) => !!variableKey && !variableKey.startsWith('@');
 
 const EDITABLE_INTERNAL_INSPECTION_VARIABLES: Record<InspectionType, Set<string>> = {
-    furni: new Set([ '@state', '@position.x', '@position.y', '@rotation', '@altitude', '@area_hide.width', '@area_hide.length', '@area_hide.root_x', '@area_hide.root_y' ]),
+    furni: new Set([ '@state', '@position.x', '@position.y', '@rotation', '@altitude', '@gravity', '@area_hide.width', '@area_hide.length', '@area_hide.root_x', '@area_hide.root_y' ]),
     user: new Set([ '@position.x', '@position.y', '@direction', '@altitude' ]),
     global: new Set([ '@teams.red.score', '@teams.green.score', '@teams.blue.score', '@teams.yellow.score' ])
 };
