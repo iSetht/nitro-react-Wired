@@ -14,6 +14,7 @@ export default defineConfig({
     build: {
         assetsInlineLimit: 1000000, // 1MB, forces Base64 for all images under this size
         rollupOptions: {
+            external: [ 'node:fs/promises' ], // truffle-text only uses this in a Node-only branch; never reached in the browser build
             output: {
                 manualChunks: id => {
                     if (id.includes('node_modules')) {
