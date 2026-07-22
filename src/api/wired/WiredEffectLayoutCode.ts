@@ -50,4 +50,5 @@ export class WiredEffectLayout
     public static GIVE_FURNI_FROM_CHEST: number = 47;
     public static INITIATE_TRANSACTION: number = 48;
     public static CANCEL_TRANSACTION: number = 49;
+    public static CHANGE_OPACITY: number = 50;
 }

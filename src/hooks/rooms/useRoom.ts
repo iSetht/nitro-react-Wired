@@ -3,9 +3,12 @@ import { useEffect, useState } from 'react';
 import { useBetween } from 'use-between';
 import { CanManipulateFurniture, DispatchUiEvent, GetNitroInstance, GetRoomEngine, GetRoomSession, IsFurnitureSelectionDisabled, ProcessRoomObjectOperation, RoomWidgetUpdateBackgroundColorPreviewEvent, RoomWidgetUpdateRoomObjectEvent, SetActiveRoomId, StartRoomSession } from '../../api';
 import { useRoomEngineEvent, useRoomSessionManagerEvent, useUiEvent } from '../events';
+import { useWiredFurniOpacity } from './useWiredFurniOpacity';
 
 const useRoomState = () =>
 {
+    useWiredFurniOpacity();
+
     const [ roomSession, setRoomSession ] = useState<IRoomSession>(null);
     const [ roomBackground, setRoomBackground ] = useState<NitroSprite>(null);
     const [ roomFilter, setRoomFilter ] = useState<AdjustmentFilter>(null);

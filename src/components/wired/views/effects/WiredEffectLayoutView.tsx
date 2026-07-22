@@ -8,6 +8,7 @@ import { WiredEffectBotTalkToRoomView } from './WiredEffectBotTalkToRoomView';
 import { WiredEffectBotTeleportToFurniView } from './WiredEffectBotTeleportToFurniView';
 import { WiredEffectBotWalkToFurniView } from './WiredEffectBotWalkToFurniView';
 import { WiredEffectChangeFurniDirectionView } from './WiredEffectChangeFurniDirectionView';
+import { WiredEffectChangeOpacityView } from './WiredEffectChangeOpacityView';
 import { WiredEffectChangeVariableValueView } from './WiredEffectChangeVariableValueView';
 import { WiredEffectControlCounterView } from './WiredEffectControlCounterView';
 import { WiredEffectCancelTransactionView } from './WiredEffectCancelTransactionView';
@@ -154,6 +155,8 @@ export const WiredEffectLayoutView = (code: number) =>
             return<WiredEffectInitiateTransactionView />;
         case WiredEffectLayout.CANCEL_TRANSACTION:
             return<WiredEffectCancelTransactionView />;
+        case WiredEffectLayout.CHANGE_OPACITY:
+            return<WiredEffectChangeOpacityView />;
     }
 
     return null;

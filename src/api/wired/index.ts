@@ -10,3 +10,4 @@ export * from './WiredTriggerLayoutCode';
 export * from './WiredSelectorLayoutCode';
 export * from './WiredVariableLayoutCode';
 export * from './WiredExtraLayoutCode';
+export * from './WiredFurniOpacityProtocol';
